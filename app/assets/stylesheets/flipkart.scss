@@ -1,0 +1,94 @@
+// Place all the styles related to the Flipkart controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+*
+{
+    padding: 0px;
+    margin: 0px;
+}
+.header
+{
+    height: 60px;
+    width: 100%;
+    background-color: blue;
+}
+
+.header-sub-div
+{
+    width: 22%;
+    height: 60px;
+    float: left;
+    padding: 10px;
+    line-height: 60px;
+    text-align: right;
+}
+.logo
+{
+    border-radius: 20px;
+    height: 50px;
+}
+
+.cart-quantity-box
+{
+    width: 60px;
+    height: 35px;
+}
+
+.cart-img
+{
+    width: 50px;
+    height: 50px;
+}
+.links
+{
+    color: black;
+    font-size: medium;
+    font-weight: bolder;
+    text-decoration: none;
+}
+.links:visited
+{
+    color:black;
+}
+.links:hover
+{
+    color: white;
+}
+
+.card 
+  {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 250px;
+    margin: auto;
+  }
+  .card-header
+  {
+    text-align: center; 
+    height: 30px;
+    padding: 5px 5px; 
+  }
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  .container
+  {
+    padding: 10px 16px;
+  }
+  .cardlogo
+  {
+    height: 100px;
+    width: 150px;
+
+  }
+  .img-card
+  {
+    text-align: center;
+  }
+
+  .edit-img
+  {
+    height: 20px;
+    width: 20px;
+
+  }

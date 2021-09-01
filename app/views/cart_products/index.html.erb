@@ -1,0 +1,111 @@
+<div>
+  
+  <div style="width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+    <%= link_to 'Back', root_path, :class => 'submit-btn links' %>
+  </div>
+
+  <% if session[:cart_count] == 0 %>
+    <div style="width: 100%; height: 200px; line-height: 40px; color: red; text-align: center; padding-top: 20px;">
+      <strong> Empty cart </strong> <br/>
+      <%= image_tag("cart.png", :alt => "rss feed", :class=>"cart-logo") %>
+      <br/>
+      <a href="/flipkart" class="danger-btn links" style="width: 100%;">Add Product to Cart</a>
+    </div>
+  <% end %>
+  <% if session[:cart_count] != 0%>
+    <div style="width: 100%;">
+      <div style="width: 40%; float: left; margin-top: 20px;">
+        <div style="height: 150px;">
+          <strong> Add Payment Option </strong>
+          <table>
+            <tbody>
+              <tr>
+                <td> 
+                  <input type="radio" name="paymentoption" value="Wallet"> Wallet
+                </td>
+              </tr>
+              <tr>
+                <td> <input type="radio" name="paymentoption" value="COD"> COD</td>
+              <tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="overflow: auto; height: 250px;">
+          <strong>Select Address </strong>
+          <hr/>
+
+            <table>
+            <tbody>
+              <% @addresses.each do |address| %>
+                <tr>
+                  <td> <input type="radio" name="address_id" value="<%= address.id %>"></td>
+                  <td>City: <%= address.city %></td>
+                  <td>Pincode: <%= address.pincode %></td>
+                  <td>Contact: <%= address.contact %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <p style="margin-top: 10px;">
+            <strong><%= link_to 'Add new address', new_address_path, :class => 'links' %></strong>
+          </p>
+        </div>
+      </div>
+
+      <div style="width: 60%; float: left;">
+          <table class="last-table-border">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal </th>
+                <th colspan=""></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @cart_products.each do |cart_product| %>
+                <tr>
+                  <td><%= cart_product.cart_id %>
+                  <%= product = @products.find { |obj| obj.id == cart_product.product_id }
+                  product.name %>
+                  </td>
+                  <td><%= product.price%></td>
+                  <td><%= cart_product.quantity %></td>
+                  <td>₹ <%= product.price * cart_product.quantity %></td>
+                <!-- <td><%= link_to 'Show', cart_product %></td> -->
+                <!-- <td><%= link_to 'Edit', edit_cart_product_path(cart_product) %></td> -->
+                  <td><%= link_to 'Remove', cart_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td colspan="3" style="text-align: left;"><strong>Total Amount</strong></td>
+                <td colspan="2" style="text-align: left"> 
+                  <strong>₹ <%= @totalAmount %></strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          
+
+          <%= form_for :product_list, url: '/order_products/place_order', method: :post do |f| %>
+            <%= f.hidden_field :totalAmount, :value=> @totalAmount %>
+            <%= f.hidden_field :cart_id, :value=> @cart.id %>
+            <%= f.hidden_field :customer_id, :value=> @cart.customer_id %>
+            <%= f.submit "Place Order", :class => "submit-btn links" %>
+          <% end %>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+
+
+
+
+
+
+<!-- <%= link_to 'Place order', new_cart_product_path %>  -->
+

@@ -1,0 +1,22 @@
+<p>
+  <strong>City:</strong>
+  <%= @address.city %>
+</p>
+
+<p>
+  <strong>Pincode:</strong>
+  <%= @address.pincode %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @address.contact %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @address.customer_id %>
+</p>
+
+<%= link_to 'Edit', edit_address_path(@address) %> |
+<%= link_to 'Back', addresses_path %>

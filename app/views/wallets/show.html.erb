@@ -1,0 +1,18 @@
+
+<p>
+  <strong>Amount:</strong>
+  <%= @wallet.amount %>
+</p>
+
+<p>
+  <strong>Pin:</strong>
+  <%= @wallet.pin %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @wallet.customer_id %>
+</p>
+
+<%= link_to 'Edit', edit_wallet_path(@wallet) %> |
+<%= link_to 'Back', wallets_path %>

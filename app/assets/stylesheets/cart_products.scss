@@ -1,0 +1,26 @@
+// Place all the styles related to the Cart_Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+  .last-table-border {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .last-table-border th, td {
+    padding: 8px;
+    text-align: left;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+  }
+
+ 
+  .cart-logo
+  {
+    width: 100px;
+    height: 100px;
+  }

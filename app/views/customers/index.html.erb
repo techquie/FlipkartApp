@@ -1,0 +1,35 @@
+<h1>Customers</h1>  
+
+<table id="customers">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Password</th>
+      <th>Email</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.id %></td>
+        <td><%= customer.name %></td>
+        <td><%= customer.password %></td>
+        <td><%= customer.email %></td>
+        <td><%= link_to 'Show', customer %></td>
+        <td> 
+         <%= link_to 'Edit', edit_customer_path(customer) %> 
+        <!--<%= link_to image_tag("edit.png"), edit_customer_path(customer), :class=>"cardlogo" %>
+        -->
+        </td>
+        <!-- <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<!-- <%= link_to 'New Customer', new_customer_path %> -->
