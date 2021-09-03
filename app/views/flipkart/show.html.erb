@@ -1,23 +1,30 @@
-<div style="margin: auto; text-align: center;">
 
-<div class="card" style="float: left; margin-right: 10px;">
+
+<div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+    <%= link_to 'Home', root_path, :class => 'submit-btn links' %>
+ </div>
+
+<div class="card" style="margin: auto; text-align: center; width: 50%; text-align: left;">
+      <div class="view-row" style="margin-left: 5px; line-height: 40px; height: 40px;">
+          Product Description
+      </div>
       <hr>
       <div class="container">
-        <h4><b>
+        <h4 class="view-row"><b>Title </b>
           <strong><%= @product.name %></strong>
-        </b></h4> 
+        </h4> 
 
-        <p>
+        <p class="view-row">
           <strong>Price:</strong> ₹ 
           <%= @product.price %>
         </p> 
 
-        <p style="height: 60px;">
+        <p class="view-row" style="height: 60px;">
           <strong>Specification:</strong> <br/>
           <%= @product.description %>
         </p>
 
-        <p style="color: red">
+        <p class="view-row" style="color: red">
           <strong><%= @product.quantity %></strong>
           are left
         </p>
@@ -26,12 +33,11 @@
           <%= form_for @cart_product do |f| %>
             <%= f.hidden_field :product_id, :value=> @product.id %>
             <%= f.number_field :quantity, :value=> 1, :min => 1, :class => "cart-quantity-box" %>
-            <%= link_to 'Back', root_path, :class => "btn" %>
             <%= f.submit "Add to Cart", :class => "submit-btn " %>
           <% end %>
         </p>
       </div>
     </div>
 
-
+  
 </div>

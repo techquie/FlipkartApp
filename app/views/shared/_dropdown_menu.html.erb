@@ -1,0 +1,21 @@
+<div class="dropdown">
+  <button class="dropbtn">
+  <% if customer_signed_in? %>    
+    <%= current_customer.name.upcase %>
+  <% end %>
+  <% if seller_signed_in? %>
+    <%= current_seller.name.upcase %>
+  <% end %>
+  </button>
+
+  <div class="dropdown-content">
+  <% if customer_signed_in? %>    
+    <a href="/sessions/myaccount" class="links">My Account</a>
+    <%= link_to 'Sign out', destroy_customer_session_path, method: :delete, :class => 'links' %>
+  <% end %>
+  <% if seller_signed_in? %>
+    <%= link_to 'Sign out', destroy_seller_session_path, method: :delete, :class => 'links' %>
+  <% end %>
+
+  </div>
+</div>

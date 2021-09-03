@@ -1,27 +1,29 @@
-<div id="header">
-      <div class="header">
-        <div class="header-sub-div" style="text-align: left">
+<div id="custom-header">
+      <div class="custom-header">
+        <div class="custom-header-sub-div" style="text-align: left">
             <%= image_tag("flipkart.png", :alt => "rss feed", :class=>"logo") %>
         </div>
-        <div class="header-sub-div">
+        <div class="custom-header-sub-div">
             <!-- <input type="text" id="search" name="search" placeholder="Search"> -->
         </div>
-        <div class="header-sub-div">
+        <div class="custom-header-sub-div">
             <% if customer_signed_in? %>    
-            <h1>Welcome
-              <%= current_customer.name.upcase %>, <!-- <a href="/sessions/logout" class="links">Logout</a> -->
-              <%= link_to 'Sign out', destroy_customer_session_path, method: :delete, :class => 'links' %>
-            </h1>
+              <!--<%= current_customer.name.upcase %>,  <a href="/sessions/logout" class="links">Logout</a> -->
+              <!-- <%= link_to 'Sign out', destroy_customer_session_path, method: :delete, :class => 'links' %> -->
+              <%= render 'shared/dropdown_menu' %>
+            <% elsif seller_signed_in? %>
+            <%= render 'shared/dropdown_menu' %>
             <% else %>
               <!-- <a href="/sessions/new" class="links">LOGIN</a> -->
-              <%= link_to 'Sign in', new_customer_session_path, :class => 'links' %>
+              <%= link_to 'Customer Sign in', new_customer_session_path, :class => 'links' %>
+              <%= link_to 'Seller Sign in', new_seller_session_path, :class => 'links' %>
             <%end%>
             
         </div>
-        <div class="header-sub-div">
+        <div class="custom-header-sub-div">
           <% if customer_signed_in? %>
-          <%= link_to image_tag("cart.png", :alt => "Cart Image", :class=>"logo rvm"), cart_products_path %>
-          <!-- <%= link_to "CART [#{current_order.cart_product.size}]", cart_products_path, :class => "links" %>  -->
+          <!-- <%= link_to image_tag("cart.png", :alt => "Cart Image", :class=>"logo rvm"), cart_products_path %> -->
+          <%= link_to "CART [#{current_order.cart_product.size}]", cart_products_path, :class => "links" %>  
           <% end %>
         </div>
         

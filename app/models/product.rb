@@ -2,7 +2,8 @@ class Product < ApplicationRecord
   belongs_to :category
   belongs_to :seller
 
-  has_many :cart_product
+  has_many :cart_product #, through: :cart
+  has_many :order_product #, through: :order
 
   validates :name, presence: true, length: {minimum: 6, maximum: 30}
   validates :price, presence: true, length: {minimum: 1, maximum: 10}, numericality: true

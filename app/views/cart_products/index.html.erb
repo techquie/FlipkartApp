@@ -67,7 +67,7 @@
             <tbody>
               <% @cart_products.each do |cart_product| %>
                 <tr>
-                  <td><%= cart_product.cart_id %>
+                  <td>
                   <%= product = @products.find { |obj| obj.id == cart_product.product_id }
                   product.name %>
                   </td>
@@ -87,8 +87,6 @@
               </tr>
             </tbody>
           </table>
-
-          
 
           <%= form_for :product_list, url: '/order_products/place_order', method: :post do |f| %>
             <%= f.hidden_field :totalAmount, :value=> @totalAmount %>

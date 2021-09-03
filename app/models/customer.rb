@@ -25,9 +25,10 @@ class Customer < ApplicationRecord
     end
 
     def create_wallet
-        @wallet = Wallet.new(:customer_id => self.id, :amount => 1000, :pin => 1234)
+        pin = rand.to_s[2..6]
+        @wallet = Wallet.new(:customer_id => self.id, :amount => 1000, :pin => pin)
         if @wallet.save
-            puts "wallet created for customer id = #{self.id} with default amount = 1000 and pin = 1234"
+            puts "wallet created for customer id = #{self.id} with default amount = 1000"
         else
             puts "wallet could not be created for customer id = #{self.id}"
         end

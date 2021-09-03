@@ -1,7 +1,12 @@
 class FlipkartController < ApplicationController
+  
   def index
-    @products = Product.all
-    @cart_product = current_order.cart_product.new
+    if seller_signed_in?
+      redirect_to '/sessions/sellersaccount', notice: "Welcome seller"
+    else
+      @products = Product.all
+      @cart_product = current_order.cart_product.new
+    end
   end
 
   def show
@@ -16,4 +21,5 @@ class FlipkartController < ApplicationController
   def new
 
   end
+
 end

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   
+  devise_for :sellers
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :customers
-  #get 'card/show'
 
   root "flipkart#index"
   resources :payments
@@ -17,12 +19,10 @@ Rails.application.routes.draw do
   resources :customers
   resource :card, only:[:show]
 
-=begin   
-  #get 'flipkart/index'
-  #get 'flipkart/show'
-=end
-
   resources :flipkart, only:[:index, :show]
+  post 'order_products/place_order', to: 'order_products#place_order'
+  get 'sessions/myaccount', to: 'sessions#myaccount'
+  get 'sessions/sellersaccount', to: 'sessions#sellersaccount'
   #get 'sessions/new'
   #get 'sessions/create'
   #get 'sessions/welcome'
@@ -30,7 +30,5 @@ Rails.application.routes.draw do
   #post 'sessions/login', to: 'sessions#create'
   #get 'flipkart/signup', to: "customers#new"
   #get 'sessions/logout', to: 'sessions#logout'
-  post 'order_products/place_order', to: 'order_products#place_order'
-  post 'home/place_order', to: 'home#place_order'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
 end

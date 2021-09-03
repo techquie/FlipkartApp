@@ -10,18 +10,18 @@ class OrderProductsController < ApplicationController
 
     @cart_products = CartProduct.where(cart_id: cart_id).all
 
-    @order = Order.new(:customer_id => customer_id, :address_id => 3)
+    @order = Order.new(:customer_id => customer_id, :address_id => 1)
 
     if @cart_products
       if @order.save
         order_id = @order.id
         @cart_products.each do |product|
-          order_product = OrderProduct.new
-          order_product.order_id = order_id
-          order_product.product_id = product.product_id
-          order_product.quantity = product.quantity
+          order_product = OrderProduct.new(order_id: order_id, product_id: product.product_id, quantity: product.quantity)
 
           if order_product.save
+            #change this logic with association
+            p = Product.find(order_product.product_id)
+            p.update(quantity: p.quantity - order_product.quantity)
             product.destroy
             puts "order placed for #{product.id} in order_id #{order_id}"
           else

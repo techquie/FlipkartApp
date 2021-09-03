@@ -1,14 +1,15 @@
 class CartProductsController < ApplicationController
   before_action :set_cart_product, only: %i[ show edit update destroy ]
+  before_action :set_cart_count
 
   # GET /cart_products or /cart_products.json
   def index
     if customer_signed_in?
       customer_id = current_customer.present? ? current_customer.id : 0
       @products = Product.all
-      @cart = Cart.find_by customer_id: customer_id
-      @cart_products = CartProduct.where(cart_id: @cart.id).all #CartProduct.find(:all, :condition => {:cart_id => @cart.id}) #.find_by cart_id: @cart.id
       
+      @cart = Cart.find_by customer_id: customer_id
+      @cart_products = CartProduct.where(cart_id: @cart.id).all
       @addresses = Address.where(customer_id: customer_id).all
       
       @totalAmount = 0
@@ -19,7 +20,6 @@ class CartProductsController < ApplicationController
     else
       redirect_to root_url, notice: "Please login to view cart"
     end
-    #@addresses = Address.find_by customer_id: 4
   end
 
   # GET /cart_products/1 or /cart_products/1.json
@@ -43,7 +43,7 @@ class CartProductsController < ApplicationController
 
       @cart_product = CartProduct.new(cart_product_params)
       customer_id = current_customer.id
-      @customer = Customer.find(customer_id)
+      
       @cart = Cart.find_by customer_id: customer_id
       @cart_product.cart_id = @cart.id
       @product = Product.find(@cart_product.product_id)
@@ -72,7 +72,7 @@ class CartProductsController < ApplicationController
             end
         end
       else
-        redirect_to root_url, notice: "Available product is less than selected quantity"
+        redirect_to root_url, notice: "Available product is less than enterted quantity"
       end
     else
       redirect_to root_url, notice: "Please login to ADD into cart"
@@ -116,5 +116,14 @@ class CartProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def cart_product_params
       params.require(:cart_product).permit(:quantity, :product_id, :cart_id)
+    end
+
+    def set_cart_count
+      if customer_signed_in?
+        customer_id = current_customer.present? ? current_customer.id : 0
+        @cart = Cart.find_by customer_id: customer_id
+        @cart_products = CartProduct.where(cart_id: @cart.id).all 
+        session[:cart_count] = @cart_products.size
+      end
     end
 end

@@ -1,6 +1,21 @@
 class SessionsController < ApplicationController
   #skip_before_action :authorized, only: [:new, :create, :welcome]
   protect_from_forgery except: [:create]
+
+
+  def myaccount
+    if customer_signed_in?
+      @wallet = Wallet.find_by customer_id: current_customer.id
+      @orders = Order.where(customer_id: current_customer.id).all
+      @addresses = Address.where(customer_id: current_customer.id).all
+    end
+  end
+
+  def sellersaccount
+  end
+
+=begin
+
   def new
   end
 
@@ -30,4 +45,5 @@ class SessionsController < ApplicationController
 
   def welcome
   end
+=end
 end
