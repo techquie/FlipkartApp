@@ -14,6 +14,17 @@ class SessionsController < ApplicationController
   def sellersaccount
   end
 
+  def viewproduct
+    if seller_signed_in?
+      @products = Product.where(seller_id: current_seller.id)
+    end
+  end
+
+  def addproduct
+    @product = Product.new
+  end
+
+  
 =begin
 
   def new

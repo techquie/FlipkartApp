@@ -1,10 +1,12 @@
 <div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
     <%= link_to 'Back', root_path, :class => 'submit-btn links' %>
   </div>
-<h3>My Account Management Panel</h3>
+<h3>Customer Management Panel</h3>
 <hr>
 <div style="margin-top: 20px;">
     <div style="width: 30%; float: left;">
+        <strong>My Info</strong>
+        <br/>
         <table>
             <tr>
                 <td>ID</td>
@@ -25,7 +27,9 @@
         </table>
     </div>
     <div style="width: 40%; float: left; height: 350px; overflow: auto;">
-        <table>
+        <strong>My Address</strong>
+        <br/>
+        <table style="padding-left: 20px;">
             <thead>
                 <tr style="text-align: left">
                 <th>City</th>
@@ -48,7 +52,7 @@
             </table>
     </div>
     <div style="width: 30%; float: left; height: 350px; overflow: auto;">
-        <table>
+        <table style="padding-left: 20px;">
             <thead>
                 <tr>
                     <th>Order Id</th>

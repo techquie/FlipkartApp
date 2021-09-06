@@ -15,26 +15,25 @@
   <% if session[:cart_count] != 0%>
     <div style="width: 100%;">
       <div style="width: 40%; float: left; margin-top: 20px;">
-        <div style="height: 150px;">
+        <div style="height: 150px; padding-right: 20px;">
           <strong> Add Payment Option </strong>
-          <table>
+          <table style="margin-top: 10px;">
             <tbody>
               <tr>
                 <td> 
                   <input type="radio" name="paymentoption" value="Wallet"> Wallet
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td> <input type="radio" name="paymentoption" value="COD"> COD</td>
-              <tr>
+              <tr> -->
             </tbody>
           </table>
         </div>
-        <div style="overflow: auto; height: 250px;">
+        <div style="overflow: auto; height: 250px; padding-right: 20px;">
           <strong>Select Address </strong>
-          <hr/>
 
-            <table>
+            <table style="margin-top: 10px;">
             <tbody>
               <% @addresses.each do |address| %>
                 <tr>

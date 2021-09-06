@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   post 'order_products/place_order', to: 'order_products#place_order'
   get 'sessions/myaccount', to: 'sessions#myaccount'
   get 'sessions/sellersaccount', to: 'sessions#sellersaccount'
+  get '/sessions/viewproduct', to: 'sessions#viewproduct'
+  get '/sessions/addproduct', to: 'sessions#addproduct'
+  
   #get 'sessions/new'
   #get 'sessions/create'
   #get 'sessions/welcome'

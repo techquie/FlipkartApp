@@ -1,1 +1,25 @@
-sellers
+<div>
+    <div style="width: 50%; float: left; height: 40px;"><%= link_to 'View Product', '/sessions/viewproduct' %></div>
+    <div  style="width: 50%; float: left; height: 40px;"><%= link_to 'Add Product', '/sessions/addproduct' %></div>
+
+    <div style="width: 100%; float: left;">
+        <table>
+            <tr >
+                <td colspan="2">My Info</td>
+            <tr>
+            <tr>
+                <td>ID</td>
+                <td><%= current_seller.id %></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><%= current_seller.name %></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><%= current_seller.email %></td>
+            </tr>
+        </table>
+    </div>
+    
+</div>
