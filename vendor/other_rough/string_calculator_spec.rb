@@ -51,3 +51,4 @@ describe Student do
         expect(cr.list_student_names).to eq("Kundan Verma,Aman Kumar")
     end
 end
+
