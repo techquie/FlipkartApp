@@ -28,4 +28,11 @@ Rails.application.routes.draw do
   post '/wallets/updatebalance', to: 'wallets#updatebalance'
   get 'sessions/view_orders/:id', to: 'sessions#view_orders'
 
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      resources :customers
+      resources :sellers
+    end
+  end
+
 end
