@@ -6,14 +6,15 @@ class Customer < ApplicationRecord
 
     has_one :wallet, dependent: :destroy
     has_many :address, dependent: :destroy
+    has_one :cart, dependent: :destroy
     has_many :payments
 
     validates :name, presence: true, length: {minimum: 5, maximum: 20}
     validates :password, presence: true, length: {minimum: 5, maximum: 10}
     validates :email, uniqueness: true, presence: true 
 
-    after_save :create_cart
-    after_save :create_wallet
+    after_create :create_cart
+    after_create :create_wallet
     
     def create_cart
         @cart = Cart.new(:customer_id => self.id)

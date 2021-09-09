@@ -46,7 +46,8 @@ class CartProductsController < ApplicationController
       
       @cart = Cart.find_by customer_id: customer_id
       @cart_product.cart_id = @cart.id
-      @product = Product.find(@cart_product.product_id)
+      @product = @cart_product.product 
+      
       if(@cart_product.quantity < @product.quantity)
        
         if CartProduct.exists?(:product_id => @cart_product.product_id, :cart_id =>@cart_product.cart_id)

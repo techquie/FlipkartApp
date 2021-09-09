@@ -49,13 +49,6 @@ class CustomersController < ApplicationController
 
   # DELETE /customers/1 or /customers/1.json
   def destroy
-=begin
-    wallets = Wallet.find_by customer_id: @customer.id
-    #@wallets.each do |wallet|
-      wallet.destroy
-    #end
-=end
-
     @customer.destroy
     respond_to do |format|
       format.html { redirect_to customers_url, notice: "Customer was successfully destroyed." }

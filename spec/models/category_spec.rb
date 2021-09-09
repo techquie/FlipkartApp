@@ -11,9 +11,15 @@ RSpec.describe Category, type: :model do
         expect(category.name).to_not eq 'Electronics'
     end
 
+    it 'check for Category name exist' do
+      category = build(:category, name:'a')
+      expect(category.save).to eq(false)
+    end
+
     context 'tests for validations' do
         it 'check for Category name exist' do
           category = build(:category, name:'')
+          category.errors.full_messages
           expect(category.save).to eq(false)
         end
     

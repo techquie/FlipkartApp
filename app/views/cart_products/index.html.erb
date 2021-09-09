@@ -73,8 +73,6 @@
                   <td><%= product.price%></td>
                   <td><%= cart_product.quantity %></td>
                   <td>₹ <%= product.price * cart_product.quantity %></td>
-                <!-- <td><%= link_to 'Show', cart_product %></td> -->
-                <!-- <td><%= link_to 'Edit', edit_cart_product_path(cart_product) %></td> -->
                   <td><%= link_to 'Remove', cart_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 </tr>
               <% end %>

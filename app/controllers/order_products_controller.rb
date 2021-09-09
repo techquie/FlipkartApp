@@ -9,8 +9,7 @@ class OrderProductsController < ApplicationController
     cart_id = @form_data[:cart_id]
 
     @cart_products = CartProduct.where(cart_id: cart_id).all
-
-    @order = Order.new(:customer_id => customer_id, :address_id => 1)
+    @order = Order.new(:customer_id => customer_id, :address_id => 1, order_date: Time.now)
 
     if @cart_products
       if @order.save

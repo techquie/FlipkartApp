@@ -25,13 +25,7 @@ Rails.application.routes.draw do
   get 'sessions/sellersaccount', to: 'sessions#sellersaccount'
   get '/sessions/viewproduct', to: 'sessions#viewproduct'
   get '/sessions/addproduct', to: 'sessions#addproduct'
-  
-  #get 'sessions/new'
-  #get 'sessions/create'
-  #get 'sessions/welcome'
-  #get 'sessions/login', to: 'sessions#new'   
-  #post 'sessions/login', to: 'sessions#create'
-  #get 'flipkart/signup', to: "customers#new"
-  #get 'sessions/logout', to: 'sessions#logout'
+  post '/wallets/updatebalance', to: 'wallets#updatebalance'
+  get 'sessions/view_orders/:id', to: 'sessions#view_orders'
 
 end

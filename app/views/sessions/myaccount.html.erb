@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <td>Available balance </td>
-                <td><%= @wallet.amount %></div></td>
+                <td><%= render 'wallet', wallet: @wallet %></td>
             </tr>
         </table>
     </div>
@@ -52,11 +52,12 @@
             </table>
     </div>
     <div style="width: 30%; float: left; height: 350px; overflow: auto;">
+        <strong>Order History</strong>
+        <br/>
         <table style="padding-left: 20px;">
             <thead>
                 <tr>
                     <th>Order Id</th>
-                    <th>Address Id</th>
                     <th>Order Date</th>
                     <th>View</th>
                 </tr>
@@ -64,13 +65,16 @@
             <% @orders.each do |order| %>
             <tr>
                 <td> <%= order.id %> </td>
-                <td> <%= order.address_id %> </td>
                 <td> <%= order.order_date %> </td> 
-                <td>View</td>
+                <td> 
+                <%= link_to 'View', "/sessions/view_orders/#{order.id}" , method: :get %>
+                </td>
             </tr>
             <% end %>
         </table>
     </div>
+    
     <!-- <div><strong><%= link_to 'Order History', new_address_path, :class => 'links' %></strong></div>
     <div><strong><%= link_to 'Add new address', new_address_path, :class => 'links' %></strong></div> -->
+
 </div>

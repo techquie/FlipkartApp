@@ -11,6 +11,21 @@ class SessionsController < ApplicationController
     end
   end
 
+  def view_orders
+    order_id = params[:id]
+    @order = Order.find(order_id)
+    @address =  @order.address
+    @order_products = OrderProduct.where(order_id: @order.id).all
+    
+    @products = Product.all
+    @totalAmount = 0
+    @order_products.each do |order_product| 
+      product = @products.find { |obj| obj.id == order_product.product_id}
+      @totalAmount = @totalAmount + order_product.quantity * product.price
+    end
+    #redirect_to "/sessions/view_orders"
+  end
+
   def sellersaccount
   end
 

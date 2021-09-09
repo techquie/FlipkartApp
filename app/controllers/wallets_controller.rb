@@ -33,7 +33,16 @@ class WalletsController < ApplicationController
       end
     end
   end
-
+  def updatebalance
+    wallet = params[:wallet]
+    
+    if Wallet.find(wallet[:wallet_id]).update(amount: wallet[:amount])
+      puts "updated"
+      redirect_to "/sessions/myaccount", notice: "Wallet balance updated with Rs. #{wallet[:amount]} "
+    else
+      redirect_to "/sessions/myaccount", notice: "Wallet balance couldn't be updated with Rs. #{wallet[:amount]} "
+    end
+  end
   # PATCH/PUT /wallets/1 or /wallets/1.json
   def update
     respond_to do |format|

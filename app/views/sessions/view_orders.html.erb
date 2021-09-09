@@ -1,0 +1,56 @@
+<div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+    <%= link_to 'Back', '/sessions/myaccount', :class => 'submit-btn links' %>
+</div>
+<div>
+    <div>
+        <strong>Order ID: </strong><%= @order.id %>
+    </div>
+
+     <div>
+        <strong>Order Date: </strong><%= @order.order_date%>
+    </div>
+
+    <div>
+        <strong>Address </strong>
+        <p style="margin-left: 20px; font-size: 14px;">
+            City: <%= @address.city %>
+            <br/>
+            Contact: <%= @address.contact %>
+            <br/>
+            Pincode: <%= @address.pincode %>
+        </p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+            <th>Order</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @order_products.each do |order_product| %>
+            <tr>
+                <td><%= order_product.order_id %></td>
+                <td><%= product = @products.find { |obj| obj.id == order_product.product_id }
+                        product.name %> </td>
+                <td><%= order_product.quantity %></td>
+                <td>₹ <%= product.price %></td>
+                <td>₹ <%= product.price  * order_product.quantity %></td>
+                </td>
+            </tr>
+            
+            <% end %>
+            <tr>
+                <td colspan="4" style="text-align: left;"><strong>Total Amount</strong></td>
+                <td colspan="2" style="text-align: left"> 
+                    <strong>₹ <%= @totalAmount %></strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
