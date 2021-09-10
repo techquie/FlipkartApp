@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def myaccount
     if customer_signed_in?
       @wallet = Wallet.find_by customer_id: current_customer.id
-      @orders = Order.where(customer_id: current_customer.id).all
+      @orders = Order.where(customer_id: current_customer.id).order(order_date: :desc).all
       @addresses = Address.where(customer_id: current_customer.id).all
     end
   end

@@ -32,6 +32,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :customers
       resources :sellers
+      resources :custom_controller
+      put "custom/add_to_cart", to: "custom#add_to_cart"
+      post "custom/place_order", to: "custom#place_order"
+      get "custom/view_orders", to: "custom#view_orders"
     end
   end
 

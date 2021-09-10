@@ -19,7 +19,7 @@ class OrderProductsController < ApplicationController
 
           if order_product.save
             #change this logic with association
-            p = Product.find(order_product.product_id)
+            p = order_product.product #Product.find(order_product.product_id)
             p.update(quantity: p.quantity - order_product.quantity)
             product.destroy
             puts "order placed for #{product.id} in order_id #{order_id}"

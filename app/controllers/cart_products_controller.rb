@@ -43,17 +43,21 @@ class CartProductsController < ApplicationController
 
       @cart_product = CartProduct.new(cart_product_params)
       customer_id = current_customer.id
-      
-      @cart = Cart.find_by customer_id: customer_id
+      @cart = current_customer.cart 
       @cart_product.cart_id = @cart.id
       @product = @cart_product.product 
       
-      if(@cart_product.quantity < @product.quantity)
+      flag = CartProduct.exists?(:product_id => @cart_product.product_id, :cart_id =>@cart_product.cart_id)
+      
+      if flag
+        localCartProduct = CartProduct.find_by product_id: @cart_product.product_id, cart_id: @cart_product.cart_id
+          @cart_product.quantity = @cart_product.quantity + localCartProduct.quantity.to_i
+      end
+
+      if(@cart_product.quantity <= @product.quantity)
        
-        if CartProduct.exists?(:product_id => @cart_product.product_id, :cart_id =>@cart_product.cart_id)
-          localCartProduct = CartProduct.find_by product_id: @cart_product.product_id, cart_id: @cart_product.cart_id
-          
-          if CartProduct.where(product_id: @cart_product.product_id).where(cart_id: @cart_product.cart_id).update_all(quantity: (localCartProduct.quantity + @cart_product.quantity)) 
+        if flag
+          if CartProduct.where(product_id: @cart_product.product_id).where(cart_id: @cart_product.cart_id).update_all(quantity: @cart_product.quantity)
             puts "updated successfully"
             redirect_to root_url, notice: "#{@product.name} added to cart"
           else
