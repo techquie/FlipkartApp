@@ -4,7 +4,7 @@ class AddDeviseToSellers < ActiveRecord::Migration[6.1]
   def self.up
     change_table :sellers do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
+      #t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -37,7 +37,7 @@ class AddDeviseToSellers < ActiveRecord::Migration[6.1]
       # t.timestamps null: false
     end
 
-    add_index :sellers, :email,                unique: true
+    #add_index :sellers, :email,                unique: true
     add_index :sellers, :reset_password_token, unique: true
     # add_index :sellers, :confirmation_token,   unique: true
     # add_index :sellers, :unlock_token,         unique: true

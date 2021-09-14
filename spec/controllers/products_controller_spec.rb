@@ -9,12 +9,12 @@ RSpec.describe ProductsController, type: :request do
       
       let(:valid_attributes) do
         {
-            name: 'Mi Note 8 Pro',
-            price: 1200,
-            quantity: 12,
-            description: "Mi Note 8 Pro Multicolor option 6/8GB RAM",
-            category_id: @current_category.id,
-            seller_id: @current_seller.id,   
+          name: 'Mi Note 8 Pro',
+          price: 1200,
+          quantity: 12,
+          description: "Mi Note 8 Pro Multicolor option 6/8GB RAM",
+          category_id: @current_category.id,
+          seller_id: @current_seller.id,   
         }
       end
    
@@ -28,6 +28,27 @@ RSpec.describe ProductsController, type: :request do
             seller_id: @current_seller.id,
         }
       end
+
+      #let! will implicitly called before
+
+      let!(:valid_attributes_2) do
+      {
+        name: 'Mi Note 8 Pro',
+        price: 1200,
+        quantity: 12,
+        description: "Mi Note 8 Pro Multicolor option 6/8GB RAM",
+        category_id: @current_category.id,
+        seller_id: @current_seller.id,   
+      }
+      end
+
+      describe 'Product#create' do
+        it 'check valid object creation' do
+          product = Product.create!(valid_attributes)
+          expect(product).to be_a_kind_of Product
+        end
+      end
+
 
 =begin
       describe 'GET #show' do 

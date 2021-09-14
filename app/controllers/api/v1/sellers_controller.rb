@@ -10,7 +10,7 @@ class Api::V1::SellersController < ApplicationController
 
     def index
       @sellers = Seller.all
-      render json: @sellers, only: [:id, :name, :email, :password]
+      render json: @sellers, only: [:id, :name, :email]
     end
 
     def destroy
@@ -25,7 +25,7 @@ class Api::V1::SellersController < ApplicationController
 
     def show
         @seller = Seller.find(params[:id])
-        render json: @seller.slice(:id, :name, :email, :password)
+        render json: @seller.slice(:id, :name, :email)
     end
 
     def create
@@ -45,7 +45,7 @@ class Api::V1::SellersController < ApplicationController
         else
             @seller=Seller.find(params[:id])
             if @seller.update(name: params[:name], password: params[:password])
-                render json: { seller: @seller.slice(:id, :name, :email, :password), message: "seller updated successfully" }
+                render json: { seller: @seller.slice(:id, :name, :email), message: "seller updated successfully" }
             else
                 render json: {errors: @seller.errors.full_messages}
             end

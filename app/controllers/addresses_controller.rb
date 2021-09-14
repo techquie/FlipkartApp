@@ -22,11 +22,14 @@ class AddressesController < ApplicationController
   # POST /addresses or /addresses.json
   def create
     @address = Address.new(address_params)
+    if customer_signed_in?
+      @address.customer_id = current_customer.present? ? current_customer.id : 0
+    end
 
     respond_to do |format|
       if @address.save
-        format.html { redirect_to @address, notice: "Address was successfully created." }
-        format.json { render :show, status: :created, location: @address }
+        format.html { redirect_to '/sessions/myaccount', notice: "Address was successfully created." }
+        #format.json { render :'/sessions/myaccount', status: :created, location: @address }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @address.errors, status: :unprocessable_entity }
@@ -38,8 +41,8 @@ class AddressesController < ApplicationController
   def update
     respond_to do |format|
       if @address.update(address_params)
-        format.html { redirect_to @address, notice: "Address was successfully updated." }
-        format.json { render :show, status: :ok, location: @address }
+        format.html { redirect_to '/sessions/myaccount', notice: "Address was successfully updated." }
+        #format.json { render :show, status: :ok, location: @address }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @address.errors, status: :unprocessable_entity }

@@ -16,17 +16,6 @@ RSpec.describe SellersController,type: :controller do
             expect(response.status).to eq(200)
         end
     end
-=begin
-    describe 'GET #create' do 
-        it "responds to show html after create" do
-            puts "Before create count of seller = #{Seller.count}"
-            post :create, params: {seller: { name: "Rajesh Singh", email: 'rajesh@gmail.com', password: 'rajesh'}}
-            puts "count of seller after post #{Seller.count}"
-            
-            expect(response).to redirect_to(:sellers)
-        end
-    end
-=end
 
     describe 'GET #show' do 
         it "responds to show html after create" do

@@ -26,12 +26,33 @@ class SessionsController < ApplicationController
     #redirect_to "/sessions/view_orders"
   end
 
+  def add_product
+    
+    form_data = params[:product]
+    name = form_data[:name]
+    price = form_data[:price]
+    description = form_data[:description]
+    quantity= form_data[:quantity]
+    category_id= form_data[:category_id]
+    seller_id = current_seller.id
+    
+    @product = Product.new(name: name, price: price, description: description, 
+      quantity: quantity, category_id: category_id, seller_id: seller_id)
+
+    if @product.save
+      redirect_to "/sessions/addproduct", notice: "#{name} added to product list."
+    else
+      redirect_to "/sessions/addproduct", alert: "#{@product.errors.full_messages}" 
+    end
+  end
+
   def sellersaccount
   end
 
   def viewproduct
     if seller_signed_in?
       @products = Product.where(seller_id: current_seller.id)
+      @categories = Category.all
     end
   end
 

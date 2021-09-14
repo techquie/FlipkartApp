@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  
+=begin
+  use_doorkeeper do
+    skip_controllers :authorizations, :applications,
+      :authorized_applications
+  end
+=end
+
+  use_doorkeeper
   devise_for :sellers
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -27,15 +34,17 @@ Rails.application.routes.draw do
   get '/sessions/addproduct', to: 'sessions#addproduct'
   post '/wallets/updatebalance', to: 'wallets#updatebalance'
   get 'sessions/view_orders/:id', to: 'sessions#view_orders'
+  post '/sessions/add_product', to: 'sessions#add_product'
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :customers
       resources :sellers
-      resources :custom_controller
-      put "custom/add_to_cart", to: "custom#add_to_cart"
-      post "custom/place_order", to: "custom#place_order"
-      get "custom/view_orders", to: "custom#view_orders"
+      resources :products
+
+      put "customer/add_to_cart", to: "customers#add_to_cart"
+      post "customer/place_order", to: "customers#place_order"
+      get "customer/view_orders", to: "customers#view_orders"
     end
   end
 

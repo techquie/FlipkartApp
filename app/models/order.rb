@@ -5,7 +5,6 @@ class Order < ApplicationRecord
   has_many :order_product, dependent: :destroy
   
   before_save :set_order_date
-  
 
   def set_order_date
     self[:order_date] = Time.now

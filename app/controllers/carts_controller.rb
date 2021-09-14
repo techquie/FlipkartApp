@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: %i[ show edit update destroy ]
+  #before_action :authenticate_customers! unless Rails.env.test?
 
   # GET /carts or /carts.json
   def index

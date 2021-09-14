@@ -24,7 +24,6 @@
     <table>
         <thead>
             <tr>
-            <th>Order</th>
             <th>Product</th>
             <th>Quantity</th>
             <th>Price</th>
@@ -35,7 +34,6 @@
         <tbody>
             <% @order_products.each do |order_product| %>
             <tr>
-                <td><%= order_product.order_id %></td>
                 <td><%= product = @products.find { |obj| obj.id == order_product.product_id }
                         product.name %> </td>
                 <td><%= order_product.quantity %></td>
@@ -46,7 +44,7 @@
             
             <% end %>
             <tr>
-                <td colspan="4" style="text-align: left;"><strong>Total Amount</strong></td>
+                <td colspan="3" style="text-align: left;"><strong>Total Amount</strong></td>
                 <td colspan="2" style="text-align: left"> 
                     <strong>₹ <%= @totalAmount %></strong>
                 </td>

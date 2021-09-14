@@ -2,10 +2,29 @@ require 'rails_helper'
 
 RSpec.describe CategoriesController,type: :controller do 
 
+	let(:create_category) { Category.create(name: 'test') }
+
 	before(:all) do
 		@category = Category.create(:name => "Household")
 	end
 	
+	before(:all) do
+        @init_count = Category.count
+    end
+
+	describe 'GET #show' do
+		it 'returns a success response after create' do
+			get :show, params: {id: @category.to_param}
+			expect(response).to be_successful
+		end
+	end
+
+	describe 'Category, type: :model' do
+		it 'is valid if name fields have value' do
+			@category = Category.new(name: 'testing')
+			expect { @category.save }.to change { Category.count }.by(1)
+		end
+	end
 
 	describe 'GET #index' do 
 
@@ -25,13 +44,6 @@ RSpec.describe CategoriesController,type: :controller do
 		end
 
 	end	
-
-	describe 'GET #show' do
-		it 'returns a success response after create' do
-			get :show, params: {id: @category.to_param}
-			expect(response).to be_successful
-		end
-	end
 
 	describe 'UPDATE #update' do
 		it 'checks that a category can be updated' do

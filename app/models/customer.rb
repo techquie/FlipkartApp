@@ -1,6 +1,5 @@
 class Customer < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+    
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -34,4 +33,19 @@ class Customer < ApplicationRecord
             puts "wallet could not be created for customer id = #{self.id}"
         end
     end
+
+    #configuration for doorkeeper
+
+    has_many :access_tokens,
+    class_name: 'Doorkeeper::AccessToken',
+    foreign_key: :resource_owner_id,
+    dependent: :delete_all
+    
+    class << self
+        def authenticate(email, password)
+          customer = Customer.find_for_authentication(email: email)
+          customer.try(:valid_password?, password) ? customer : nil
+        end
+    end
+
 end

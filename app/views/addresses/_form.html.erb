@@ -1,37 +1,45 @@
-<%= form_with(model: address) do |form| %>
-  <% if address.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
+<div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+  <%= link_to 'Back', '/sessions/myaccount', :class => 'submit-btn links' %>
+</div>
+<div style="width: 100%;">
+  <div style="margin: auto; width: 50%; float: left;">
+    <h4>My Address</h4>
+    <%= form_with(model: address) do |form| %>
+      <div class="field">
+        <%= form.label :city %>
+        <%= form.text_field :city %>
+      </div>
 
-      <ul>
-        <% address.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <div class="field">
+        <%= form.label :pincode %>
+        <%= form.number_field :pincode %>
+      </div>
 
-  <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city %>
+      <div class="field">
+        <%= form.label :contact %>
+        <%= form.text_field :contact %>
+      </div>
+    <!--
+      <div class="field">
+        <%= form.label :customer_id %>
+        <%= form.text_field :customer_id %>
+      </div>
+    -->
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :pincode %>
-    <%= form.number_field :pincode %>
+  <div style="margin: auto; width: 50%; float: left; margin-top: 60px;">
+    <% if address.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
+        <ul>
+          <% address.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :contact %>
-    <%= form.text_field :contact %>
-  </div>
-
-  <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.text_field :customer_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

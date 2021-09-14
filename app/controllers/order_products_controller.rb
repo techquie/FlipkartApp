@@ -13,23 +13,21 @@ class OrderProductsController < ApplicationController
 
     if @cart_products
       if @order.save
-        order_id = @order.id
         @cart_products.each do |product|
-          order_product = OrderProduct.new(order_id: order_id, product_id: product.product_id, quantity: product.quantity)
+          order_product = OrderProduct.new(order_id: @order.id, product_id: product.product_id, quantity: product.quantity)
 
           if order_product.save
             #change this logic with association
-            p = order_product.product #Product.find(order_product.product_id)
-            p.update(quantity: p.quantity - order_product.quantity)
+            #p = order_product.product #Product.find(order_product.product_id)
+            #p.update(quantity: p.quantity - order_product.quantity)
             product.destroy
-            puts "order placed for #{product.id} in order_id #{order_id}"
+            puts "order placed for #{product.id} in order_id #{@order.id}"
           else
-            puts @order_product.errors.full_messages
-            puts "order can't be placed for #{product.id} in order_id #{order_id}"
+            puts "order can't be placed for #{product.id} in order_id #{@order.id}"
           end
         end
         session[:cart_count] = 0
-        redirect_to '/cart_products', notice: "Thank You ! Order placed successfully order id [#{order_id}]"
+        redirect_to '/cart_products', notice: "Thank You ! Order placed successfully order id [#{@order.id}]"
       else
         puts @order.errors.full_messages
         redirect_to cart_product_path, notice: "order couldn't be initiated"

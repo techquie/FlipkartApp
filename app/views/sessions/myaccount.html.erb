@@ -27,7 +27,7 @@
         </table>
     </div>
     <div style="width: 40%; float: left; height: 350px; overflow: auto;">
-        <strong>My Address</strong>
+        <strong>My Address</strong> 
         <br/>
         <table style="padding-left: 20px;">
             <thead>
@@ -35,6 +35,7 @@
                 <th>City</th>
                 <th>Pincode</th>
                 <th>Contact</th>
+                <th>Action</th>
                 </tr>
             </thead>
 
@@ -44,12 +45,13 @@
                     <td><%= address.city %></td>
                     <td><%= address.pincode %></td>
                     <td><%= address.contact %></td>
-                    <!-- <td><%= link_to 'Edit', edit_address_path(address) %></td>
-                    <td><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+                    <td><%= link_to 'Edit', edit_address_path(address) %></td>
+                    <!-- <td><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
                 </tr>
                 <% end %>
             </tbody>
             </table>
+            <strong><%= link_to 'Add new address', new_address_path, :class => 'links' %></strong>
     </div>
     <div style="width: 30%; float: left; height: 350px; overflow: auto;">
         <strong>Order History</strong>
