@@ -1,0 +1,30 @@
+
+<div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+    <%= link_to 'Back', '/sessions/sellersaccount', :class => 'submit-btn links' %>
+</div>
+<div>
+    <table style="margin-bottom: 100px;">
+        <thead>
+            <tr>
+            <th>OrderId</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @order_products.each do |order_product| %>
+            <tr>
+                <td><%= order_product.order_id %></td>
+                <td><%= product = @products.find { |obj| obj.id == order_product.product_id }
+                        product.name %> </td>
+                <td><%= order_product.quantity %></td>
+                <td>₹ <%= order_product.order.order_date %></td>
+                </td>
+            </tr>
+            
+            <% end %>
+        </tbody>
+    </table>
+</div>

@@ -5,13 +5,15 @@ class CartProductsController < ApplicationController
   # GET /cart_products or /cart_products.json
   def index
     if customer_signed_in?
-      customer_id = current_customer.present? ? current_customer.id : 0
+      #customer_id = current_customer.present? ? current_customer.id : 0
       @products = Product.all
       
-      @cart = Cart.find_by customer_id: customer_id
+      @cart = current_customer.cart #Cart.find_by customer_id: customer_id
+      @wallet = current_customer.wallet
+
       @cart_products = CartProduct.where(cart_id: @cart.id).all
-      @addresses = Address.where(customer_id: customer_id).all
-      
+      @addresses = Address.where(customer_id: current_customer.id).all
+
       @totalAmount = 0
       @cart_products.each do |cart_product| 
         product = @products.find { |obj| obj.id == cart_product.product_id}

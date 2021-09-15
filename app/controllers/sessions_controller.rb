@@ -2,12 +2,20 @@ class SessionsController < ApplicationController
   #skip_before_action :authorized, only: [:new, :create, :welcome]
   protect_from_forgery except: [:create]
 
-
   def myaccount
     if customer_signed_in?
       @wallet = Wallet.find_by customer_id: current_customer.id
       @orders = Order.where(customer_id: current_customer.id).order(order_date: :desc).all
       @addresses = Address.where(customer_id: current_customer.id).all
+    end
+  end
+
+  def productorderhistory
+    if seller_signed_in?
+      ids = Product.where(seller_id: current_seller).all.ids
+      @order_products = OrderProduct.where(:product_id => ids).order(id: :desc)
+      @products = Product.all
+      #total order, total count of product, 
     end
   end
 
@@ -26,18 +34,8 @@ class SessionsController < ApplicationController
     #redirect_to "/sessions/view_orders"
   end
 
-  def add_product
-    
-    form_data = params[:product]
-    name = form_data[:name]
-    price = form_data[:price]
-    description = form_data[:description]
-    quantity= form_data[:quantity]
-    category_id= form_data[:category_id]
-    seller_id = current_seller.id
-    
-    @product = Product.new(name: name, price: price, description: description, 
-      quantity: quantity, category_id: category_id, seller_id: seller_id)
+  def add_product    
+    @product = Product.new(product_params)
 
     if @product.save
       redirect_to "/sessions/addproduct", notice: "#{name} added to product list."
@@ -60,37 +58,18 @@ class SessionsController < ApplicationController
     @product = Product.new
   end
 
-  
-=begin
+  private 
 
-  def new
+  def product_params
+    res = {}
+    form_data = params[:product]
+    res[:name] = form_data[:name]
+    res[:price] = form_data[:price]
+    res[:description] = form_data[:description]
+    res[:quantity] = form_data[:quantity]
+    res[:category_id] = form_data[:category_id]
+    res[:seller_id] = current_seller.id
+    return res
   end
 
-  def create
-
-    @customer = Customer.find_by email: params[:username]
-  
-    if @customer && @customer.password.eql?(params[:password]) #@customer.authenticate(params[:password])      
-      session[:user_id] = @customer.id     
-      cart = Cart.find_by customer_id: @customer.id
-      cart_products = CartProduct.where(cart_id: cart.id).all
-      session[:cart_count] = cart_products.size
-      session[:cart_id] = cart.id
-      redirect_to '/flipkart'  
-    else      
-      redirect_to '/sessions/login'   
-    end
-  end
-
-  def logout
-    session[:user_id] = nil
-    reset_session
-    redirect_to root_url, notice: "Logged out"
-  end
-  def login
-  end
-
-  def welcome
-  end
-=end
 end

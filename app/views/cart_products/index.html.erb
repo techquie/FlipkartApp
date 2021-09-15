@@ -13,31 +13,20 @@
     </div>
   <% end %>
   <% if session[:cart_count] != 0%>
+  <%= form_for :product_list, url: '/order_products/place_order', method: :post do |f| %>
     <div style="width: 100%;">
-      <div style="width: 40%; float: left; margin-top: 20px;">
-        <div style="height: 150px; padding-right: 20px;">
-          <strong> Add Payment Option </strong>
-          <table style="margin-top: 10px;">
-            <tbody>
-              <tr>
-                <td> 
-                  <input type="radio" name="paymentoption" value="Wallet"> Wallet
-                </td>
-              </tr>
-              <!-- <tr>
-                <td> <input type="radio" name="paymentoption" value="COD"> COD</td>
-              <tr> -->
-            </tbody>
-          </table>
-        </div>
-        <div style="overflow: auto; height: 250px; padding-right: 20px;">
+      <div style="width: 40%; float: left;">
+
+        <div style="overflow: auto; height: 200px; padding-right: 20px;">
           <strong>Select Address </strong>
 
             <table style="margin-top: 10px;">
             <tbody>
               <% @addresses.each do |address| %>
                 <tr>
-                  <td> <input type="radio" name="address_id" value="<%= address.id %>"></td>
+                  <td> 
+                    <%= f.radio_button:address_id, address.id, :checked => (address.default == true) %>
+                  </td>
                   <td>City: <%= address.city %></td>
                   <td>Pincode: <%= address.pincode %></td>
                   <td>Contact: <%= address.contact %></td>
@@ -49,6 +38,28 @@
             <strong><%= link_to 'Add new address', new_address_path, :class => 'links' %></strong>
           </p>
         </div>
+
+        <div style="height: 150px; padding-right: 20px;">
+          <strong> Payment Option </strong>
+          <table style="margin-top: 10px;">
+            <tbody>
+              <tr>
+                <td> <span>
+                  <%= f.radio_button:paymentoption,'Wallet', :checked => (true) %>
+                  Wallet</span>
+                  <label>
+                  Available balance: ₹ 
+                  <%= @wallet.amount %>
+                  </label>
+                </td>
+              </tr>
+              <!-- <tr>
+                <td> <input type="radio" name="paymentoption" value="COD"> COD</td>
+              <tr> -->
+            </tbody>
+          </table>
+        </div>
+        
       </div>
 
       <div style="width: 60%; float: left;">
@@ -85,12 +96,12 @@
             </tbody>
           </table>
 
-          <%= form_for :product_list, url: '/order_products/place_order', method: :post do |f| %>
+          
             <%= f.hidden_field :totalAmount, :value=> @totalAmount %>
             <%= f.hidden_field :cart_id, :value=> @cart.id %>
             <%= f.hidden_field :customer_id, :value=> @cart.customer_id %>
             <%= f.submit "Place Order", :class => "submit-btn links" %>
-          <% end %>
+  <% end %>
       </div>
     </div>
   <% end %>

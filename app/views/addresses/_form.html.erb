@@ -19,6 +19,11 @@
         <%= form.label :contact %>
         <%= form.text_field :contact %>
       </div>
+
+      <div class="field">
+        <%= form.label :default %>
+        <%= form.select :default, [['No', false], ['Yes', true]] %>
+      </div>
     <!--
       <div class="field">
         <%= form.label :customer_id %>

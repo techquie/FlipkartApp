@@ -4,20 +4,24 @@
             <%= image_tag("flipkart.png", :alt => "rss feed", :class=>"logo") %>
         </div>
         <div class="custom-header-sub-div">
-            <input type="text" id="search" name="search" placeholder="Search"> 
+            <% if !seller_signed_in? %>
+            <%= form_for:searchform,url: '/search', method: :get  do |f| %>
+              <%= f.text_field :query, :required => true %>
+              <%= f.submit "Search", :class => "btn " %>
+            <% end %>
+            <% end %>
         </div>
         <div class="custom-header-sub-div">
-            <% if customer_signed_in? %>    
-              <!--<%= current_customer.name.upcase %>,  <a href="/sessions/logout" class="links">Logout</a> -->
-              <!-- <%= link_to 'Sign out', destroy_customer_session_path, method: :delete, :class => 'links' %> -->
-              <%= render 'shared/dropdown_menu' %>
-            <% elsif seller_signed_in? %>
+          <% if customer_signed_in? %>    
+            <!--<%= current_customer.name.upcase %>,  <a href="/sessions/logout" class="links">Logout</a> -->
+            <!-- <%= link_to 'Sign out', destroy_customer_session_path, method: :delete, :class => 'links' %> -->
             <%= render 'shared/dropdown_menu' %>
-            <% else %>
-              <%= link_to 'Customer Sign in', new_customer_session_path, :class => 'links' %>
-              <%= link_to 'Seller Sign in', new_seller_session_path, :class => 'links' %>
-            <%end%>
-            
+          <% elsif seller_signed_in? %>
+          <%= render 'shared/dropdown_menu' %>
+          <% else %>
+            <%= link_to 'Customer Sign in', new_customer_session_path, :class => 'links' %>
+            <%= link_to 'Seller Sign in', new_seller_session_path, :class => 'links' %>
+          <%end%>
         </div>
         <div class="custom-header-sub-div">
           <% if customer_signed_in? %>

@@ -35,6 +35,9 @@ Rails.application.routes.draw do
   post '/wallets/updatebalance', to: 'wallets#updatebalance'
   get 'sessions/view_orders/:id', to: 'sessions#view_orders'
   post '/sessions/add_product', to: 'sessions#add_product'
+  get '/sessions/productorderhistory', to: 'sessions#productorderhistory'
+  post '/order_products/order_payment', to: 'order_products#order_payment'
+  get '/search', to: 'flipkart#search'
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do

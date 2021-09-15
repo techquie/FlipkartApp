@@ -22,8 +22,19 @@
             </tr>
             <tr>
                 <td>Available balance </td>
-                <td><%= render 'wallet', wallet: @wallet %></td>
+                <td>
+                    <%= @wallet.amount %>
+                    <!-- <%= render 'wallet', wallet: @wallet %> -->
+                </td>
             </tr>
+
+            <tr>
+                <td>Security Pin </td>
+                <td>
+                    <%= @wallet.pin %>
+                </td>
+            </tr>
+
         </table>
     </div>
     <div style="width: 40%; float: left; height: 350px; overflow: auto;">
@@ -51,7 +62,7 @@
                 <% end %>
             </tbody>
             </table>
-            <strong><%= link_to 'Add new address', new_address_path, :class => 'links' %></strong>
+            <strong style="margin-left: 20px;"><%= link_to 'New Address', new_address_path, :class => 'links' %></strong>
     </div>
     <div style="width: 30%; float: left; height: 350px; overflow: auto;">
         <strong>Order History</strong>

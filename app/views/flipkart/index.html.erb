@@ -1,43 +1,46 @@
 
-<div class="">
+<div style="margin-bottom: 500px;">
+  <% @products.each do |product| %>
+      <div class="card" style="float: left; margin-right: 55px;">
+        <!-- 
+        <div class="img-card">
+          <%= image_tag("user.png", :alt => "rss feed", :class=>"cardlogo") %>
+        </div> -->
+        <hr>
+        <div class="container">
+          <h4><b>
+            <strong><%= product.name %></strong>
+          </b></h4> 
 
-<% @products.each do |product| %>
-    <div class="card" style="float: left; margin-right: 10px;">
-      <!-- 
-      <div class="img-card">
-        <%= image_tag("user.png", :alt => "rss feed", :class=>"cardlogo") %>
-      </div> -->
-      <hr>
-      <div class="container">
-        <h4><b>
-          <strong><%= product.name %></strong>
-        </b></h4> 
+          <p>
+            <strong>Price:</strong> ₹ 
+            <%= product.price %>
+          </p> 
 
-        <p>
-          <strong>Price:</strong> ₹ 
-          <%= product.price %>
-        </p> 
-
-        <p style="height: 60px;">
-          <strong>Specification:</strong> <br/>
-          <%= product.description %>
-        </p>
-
-        <p style="color: red">
-          <strong><%= product.quantity %></strong>
-          are left
-        </p>
-        
-        <p>
-          <%= form_for @cart_product do |f| %>
-            <%= f.hidden_field :product_id, :value=> product.id %>
-            <%= f.number_field :quantity, :value=> 1, :min => 1, :class => "cart-quantity-box" %>
-            <%= link_to 'Show', flipkart_path(product), :class => "btn" %>
-            <%= f.submit "Add to Cart", :class => "submit-btn " %>
+          <p style="height: 60px;">
+            <strong>Specification:</strong> <br/>
+            <%= product.description %>
+          </p>
+          <% if product.quantity == 0%>
+            <p style="color: red">
+              Out of stock
+            </p>
+          <% elsif product.quantity <= 10 %>%>
+          <p style="color: red">
+              Hurry few left
+            </p>
           <% end %>
-        </p>
+          
+          <p>
+            <%= form_for @cart_product do |f| %>
+              <%= f.hidden_field :product_id, :value=> product.id %>
+              <%= f.number_field :quantity, :value=> 1, :min => 1, :class => "cart-quantity-box" %>
+              <%= link_to 'Show', flipkart_path(product), :class => "btn" %>
+              <%= f.submit "Add to Cart", :class => "submit-btn " %>
+            <% end %>
+          </p>
+        </div>
       </div>
-    </div>
 
-<% end %>
+  <% end %>
 </div>
