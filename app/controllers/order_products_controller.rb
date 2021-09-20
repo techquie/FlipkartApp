@@ -1,19 +1,17 @@
 class OrderProductsController < ApplicationController
   before_action :set_order_product, only: %i[ show edit update destroy ]
-  
+  before_action :customer_signed_in
+
   def order_payment
     puts "-: order place initiated :-"
     if customer_signed_in?
       @form_data = params[:formdata]
       customer_id =  @form_data[:customer_id]
-      payment_option = @form_data[:paymentoption]
-      address_id = @form_data[:address_id]
       @wallet = current_customer.wallet
-      cart_id = current_customer.cart.id
       
       if @wallet.pin.to_i == @form_data[:securitycode].to_i
-        @cart_products = CartProduct.where(cart_id: cart_id).all
-        @order = Order.new(:customer_id => customer_id, :address_id => address_id, order_date: Time.now)
+        @cart_products = CartProduct.where(cart_id: current_customer.cart.id).all
+        @order = Order.new(:customer_id => customer_id, :address_id => @form_data[:address_id], order_date: Time.now)
         if @cart_products
           if @order.save
             @cart_products.each do |product|
@@ -21,17 +19,18 @@ class OrderProductsController < ApplicationController
 
               if order_product.save
                 product.destroy
-                puts "order placed for #{product.id} in order_id #{@order.id}"
-              else
-                puts "order can't be placed for #{product.id} in order_id #{@order.id}"
               end
             end
-            #this will be moved to payment page
-            #@payment = Payment.new(mode: payment_option, order_id: @order.id)
-            #@payment.save
+            
+            if @wallet.update(amount: (@wallet.amount - @form_data[:total_amount].to_i))
+              puts "payable amount deducted successfully"
+            end
 
+            @payment = Payment.new(mode: @form_data[:paymentoption], order_id: @order.id)
+            @payment.save
             session[:cart_count] = 0
-            redirect_to '/cart_products', notice: "Thank You ! Order placed successfully order id [#{@order.id}]"
+            
+            redirect_to controller: 'order_products', action: 'order_summary', order_id: @order.id
           else
             puts @order.errors.full_messages
             redirect_to cart_product_path, notice: "order couldn't be initiated"
@@ -47,57 +46,54 @@ class OrderProductsController < ApplicationController
     end
   end
 
+  def order_summary
+    order_id = params[:order_id]
+    if Order.exists?(:id => order_id)
+      @order = Order.find(order_id)
+      @order_products = OrderProduct.where(order_id: order_id).all
+      @total_amount = 0
+      @order_products.each do |order_product| 
+          @total_amount = @total_amount + order_product.quantity * order_product.product.price
+      end
+    else
+      redirect_to root_url, notice: "Failed to retrieve order "
+    end
+    
+  end
 
   def place_order
     puts "-: order place initiated :-"
     if customer_signed_in?
       @form_data = params[:product_list]
-      #customer_id =  @form_data[:customer_id]
-      #cart_id = @form_data[:cart_id]
-      #payment_option = @form_data[:paymentoption]
-      #address_id = @form_data[:address_id]
       @wallet = current_customer.wallet
     end
-
-    
-=begin
-      @cart_products = CartProduct.where(cart_id: cart_id).all
-      @order = Order.new(:customer_id => customer_id, :address_id => address_id, order_date: Time.now)
-      if @cart_products
-        if @order.save
-          @cart_products.each do |product|
-            order_product = OrderProduct.new(order_id: @order.id, product_id: product.product_id, quantity: product.quantity)
-
-            if order_product.save
-              product.destroy
-              puts "order placed for #{product.id} in order_id #{@order.id}"
-            else
-              puts "order can't be placed for #{product.id} in order_id #{@order.id}"
-            end
-          end
-          #this will be moved to payment page
-          #@payment = Payment.new(mode: payment_option, order_id: @order.id)
-          #@payment.save
-
-          session[:cart_count] = 0
-          redirect_to '/cart_products', notice: "Thank You ! Order placed successfully order id [#{@order.id}]"
-        else
-          puts @order.errors.full_messages
-          redirect_to cart_product_path, notice: "order couldn't be initiated"
-        end
-      else
-        redirect_to cart_product_path, notice: "cart is empty, couldn't be initiated"
-      end
-    else
-      redirect_to root_path, notice: "customer not logged in, couldn't be initiated"
-    end
-=end
   end
 
   # GET /order_products or /order_products.json
   def index
     @order_products = OrderProduct.all    
     @products = Product.all
+    order_id = params[:order_id]
+    
+    if !order_id.nil?
+      @order = Order.find(order_id)
+      @order_products = OrderProduct.where(order_id: order_id).all
+      @total_amount = 0
+      @order_products.each do |order_product| 
+          @total_amount = @total_amount + order_product.quantity * order_product.product.price
+      end
+  
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render pdf: "payments",template: 'order_products/order_summary.html.erb'
+        end
+      end
+    else
+      flash[:notice] = "Restricted !"
+    end
+
+
   end
 
   # GET /order_products/1 or /order_products/1.json
@@ -111,6 +107,22 @@ class OrderProductsController < ApplicationController
 
   # GET /order_products/1/edit
   def edit
+    order_id = params[:order_id]
+    @order = Order.find(order_id)
+    @order_products = OrderProduct.where(order_id: order_id).all
+    @total_amount = 0
+    @order_products.each do |order_product| 
+        @total_amount = @total_amount + order_product.quantity * order_product.product.price
+    end
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "payments",template: 'order_products/order_summary.html.erb'
+      end
+    end
+
+
   end
 
   # POST /order_products or /order_products.json

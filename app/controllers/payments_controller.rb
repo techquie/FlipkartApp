@@ -8,6 +8,12 @@ class PaymentsController < ApplicationController
 
   # GET /payments/1 or /payments/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "payments",template: 'payments/payment.html.erb'
+      end
+    end
   end
 
   # GET /payments/new

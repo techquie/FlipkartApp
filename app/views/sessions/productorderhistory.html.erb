@@ -7,8 +7,10 @@
         <thead>
             <tr>
             <th>OrderId</th>
+            <th>Customer</th>
             <th>Product</th>
             <th>Quantity</th>
+            <th>City</th>
             <th>Date</th>
             </tr>
         </thead>
@@ -17,9 +19,11 @@
             <% @order_products.each do |order_product| %>
             <tr>
                 <td><%= order_product.order_id %></td>
+                <td><%= order_product.order.customer.name %></td>
                 <td><%= product = @products.find { |obj| obj.id == order_product.product_id }
                         product.name %> </td>
                 <td><%= order_product.quantity %></td>
+                <td><%= order_product.order.address.city %> </td>
                 <td>₹ <%= order_product.order.order_date %></td>
                 </td>
             </tr>

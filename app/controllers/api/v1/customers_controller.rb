@@ -13,11 +13,6 @@ class Api::V1::CustomersController < ApplicationController
     def index
       @customers = Customer.all
       render json: @customers, only: [:id, :name, :email]
-=begin      
-      respond_to do |format|
-        format.json { render :json => @customers.to_json, :status => :ok}
-      end
-=end
     end
 
     def destroy

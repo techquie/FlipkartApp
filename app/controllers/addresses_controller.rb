@@ -1,5 +1,6 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: %i[ show edit update destroy ]
+  before_action :customer_signed_in
 
   # GET /addresses or /addresses.json
   def index
@@ -28,7 +29,7 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       if @address.save
-        format.html { redirect_to '/sessions/myaccount', notice: "Address was successfully created." }
+        format.html { redirect_to '/sessions/myaccount', notice: "Address is successfully created." }
         #format.json { render :'/sessions/myaccount', status: :created, location: @address }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -69,4 +70,5 @@ class AddressesController < ApplicationController
     def address_params
       params.require(:address).permit(:city, :pincode, :contact, :customer_id, :default)
     end
+
 end

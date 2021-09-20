@@ -8,9 +8,13 @@
             <%= f.hidden_field :address_id, :value=> @form_data[:address_id] %>
             <%= f.hidden_field :paymentoption, :value=> @form_data[:paymentoption] %>
             <%= f.hidden_field :customer_id, :value=> @form_data[:customer_id] %>
+            <%= f.hidden_field :total_amount, :value=> @form_data[:totalAmount] %>
 
-        <div class="card"> 
-            <table>
+        <div class="card" style="width: 385px;"> 
+            <table style="padding: 10px;">
+                <tr>
+                    <td colspan="2" style="text-align: center; font-weight: bold;">Payment Summary </td>
+                <tr>
                 <tr>
                     <td>Available Balance</td>
                     <td><%= @wallet.amount%></td>

@@ -1,6 +1,7 @@
 class CartProductsController < ApplicationController
   before_action :set_cart_product, only: %i[ show edit update destroy ]
   before_action :set_cart_count
+  before_action :customer_signed_in
 
   # GET /cart_products or /cart_products.json
   def index
@@ -16,8 +17,7 @@ class CartProductsController < ApplicationController
 
       @totalAmount = 0
       @cart_products.each do |cart_product| 
-        product = @products.find { |obj| obj.id == cart_product.product_id}
-        @totalAmount = @totalAmount + cart_product.quantity * product.price
+        @totalAmount = @totalAmount + cart_product.quantity * cart_product.product.price
       end
     else
       redirect_to root_url, notice: "Please login to view cart"

@@ -13,7 +13,8 @@
  *= require_tree .
  *= require_self
  */
-
+  a{ text-decoration: none !important; }
+ 
   body
   {
     margin: 0px;
@@ -117,13 +118,29 @@
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {background-color: #84bd7f}
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
 .dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+  /*background-color: #3e8e41;*/
 }
 
+
+.links
+{
+    color: black;
+    font-size: medium;
+    font-weight: bolder;
+    text-decoration: none;
+}
+.links:visited
+{
+    color:black;
+}
+.links:hover
+{
+    color: white;
+}

@@ -1,0 +1,82 @@
+
+
+<div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+    <%= link_to 'Download Receipt', order_products_path(:order_id => @order.id, format: :pdf), :class => 'submit-btn'%>
+    <%= link_to 'Home', root_url, :class => 'submit-btn links' %>
+</div>
+
+<div style="margin: auto; width: 60%; border: solid 1px black; padding: 20px; margin-bottom: 100px;">
+    <div style="width: 100%; height: 60px; text-align: center;">
+        <strong>Order Summary </strong>
+        <hr/>
+    </div>
+
+    <div style="width: 100%; height: 40px;">
+        <div style="height: 40px; width: 50%; float: left;"> 
+            <strong>Order Id </strong> <%= @order.id%>
+        </div>
+        <div style="height: 40px; width: 50%; float: left; text-align: right;"> 
+            <strong>Order Date </strong><%= @order.order_date%>
+        </div>
+    </div>
+
+    <div style="width: 100%; height: 40px;">
+        <strong>Customer Name: </strong><%= @order.customer.name%>
+    </div>
+
+    <div style="width: 100%; height: 40px;">
+        <strong>Contact: </strong> <%= @order.address.contact%>
+    </div>
+
+    <div style="width: 100%; height: 40px;">
+        <strong>Address: </strong>City : <%= @order.address.city%> Pincode : <%= @order.address.pincode%>
+    </div>
+    <div>
+        <hr/>
+    </div>
+
+    <div style="width: 100%;">
+        <div style="height: 40px; width: 100%; text-align: center; font-weight: bold;">Order Details</div>
+
+        <div>
+            <table class="last-table-border">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @order_products.each do |cart_product| %>
+                <tr>
+                  <td>
+                  <%= cart_product.product.name %>
+                  </td>
+                  <td><%= cart_product.product.price%></td>
+                  <td><%= cart_product.quantity %></td>
+                  <td>&#8377; <%= cart_product.product.price * cart_product.quantity %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td colspan="3" style="text-align: left;"><strong>Total Amount</strong></td>
+                <td colspan="2" style="text-align: left"> 
+                  <strong>&#8377; <%= @total_amount %></strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="height: 50px;">
+        Thank you for shopping with us.
+        </div>
+
+        <div style="height: 50px; text-align: right;">
+        Authorized by <br/>
+        &copy e-com
+        </div>
+    </div>
+</div>

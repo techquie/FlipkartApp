@@ -1,6 +1,3 @@
-// Place all the styles related to the Flipkart controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
 *
 {
     padding: 0px;
@@ -11,14 +8,15 @@
     height: 60px;
     width: 100%;
     background-color: blue;
+    line-height: 60px;
 }
 
 .custom-header-sub-div
 {
-    width: 22%;
+    width: 25%;
     height: 60px;
     float: left;
-    padding: 10px;
+    //padding: 10px;
     line-height: 60px;
     text-align: right;
 }
@@ -26,6 +24,7 @@
 {
     border-radius: 20px;
     height: 50px;
+    margin: 6px;
 }
 
 .cart-quantity-box
@@ -38,21 +37,6 @@
 {
     width: 50px;
     height: 50px;
-}
-.links
-{
-    color: black;
-    font-size: medium;
-    font-weight: bolder;
-    text-decoration: none;
-}
-.links:visited
-{
-    color:black;
-}
-.links:hover
-{
-    color: white;
 }
 
 .card 
@@ -69,18 +53,13 @@
     padding: 5px 5px; 
   }
   .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 18px 30px 0 rgba(0,0,0,0.2);
   }
   .container
   {
     padding: 10px 16px;
   }
-  .cardlogo
-  {
-    height: 100px;
-    width: 150px;
-
-  }
+  
   .img-card
   {
     text-align: center;
@@ -90,9 +69,12 @@
   {
     height: 20px;
     width: 20px;
-
   }
-
+  .cardlogo
+  {
+    height: 200px;
+    width: 200px;
+  }
 .view-row
 {
   text-align: left;
@@ -104,4 +86,11 @@
 {
   height: 300px;
   width: 400px;
+}
+
+.show-item
+{
+  width:  100%;
+  display: flex;
+  justify-content: space-evenly;
 }

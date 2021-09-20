@@ -17,4 +17,16 @@ class ApplicationController < ActionController::Base
         { json: { error: "Not authorized" } }
     end
     
+    def customer_signed_in
+        if !customer_signed_in?
+          redirect_to '/customers/sign_in', notice: 'please login to continue'
+        end
+    end
+      
+    def sellers_signed_in
+        if !seller_signed_in?
+            redirect_to '/customers/sign_in', notice: 'please login to continue'
+        end
+    end
+
 end

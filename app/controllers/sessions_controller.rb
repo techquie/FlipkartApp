@@ -7,15 +7,20 @@ class SessionsController < ApplicationController
       @wallet = Wallet.find_by customer_id: current_customer.id
       @orders = Order.where(customer_id: current_customer.id).order(order_date: :desc).all
       @addresses = Address.where(customer_id: current_customer.id).all
+    else
+      #redirect to login page
     end
   end
 
   def productorderhistory
     if seller_signed_in?
-      ids = Product.where(seller_id: current_seller).all.ids
+      #make use of currnt_seller /associatons 
+      #ids = Product.where(seller_id: current_seller).all.ids
+      ids = current_seller.product.all.ids
       @order_products = OrderProduct.where(:product_id => ids).order(id: :desc)
       @products = Product.all
-      #total order, total count of product, 
+    else
+      #redirect to login page
     end
   end
 
@@ -47,12 +52,6 @@ class SessionsController < ApplicationController
   def sellersaccount
   end
 
-  def viewproduct
-    if seller_signed_in?
-      @products = Product.where(seller_id: current_seller.id)
-      @categories = Category.all
-    end
-  end
 
   def addproduct
     @product = Product.new

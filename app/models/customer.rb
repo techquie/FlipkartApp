@@ -25,7 +25,7 @@ class Customer < ApplicationRecord
     end
 
     def create_wallet
-        pin = rand.to_s[2..6]
+        pin = rand.to_s[2..5]
         @wallet = Wallet.new(:customer_id => self.id, :amount => 100000, :pin => pin)
         if @wallet.save
             puts "wallet created for customer id = #{self.id} with default amount = 1000"
@@ -46,6 +46,14 @@ class Customer < ApplicationRecord
           customer = Customer.find_for_authentication(email: email)
           customer.try(:valid_password?, password) ? customer : nil
         end
+    end
+
+    def active_for_authentication?
+        self.active
+    end
+      
+    def inactive_message
+        "Sorry, this account is banned."
     end
 
 end

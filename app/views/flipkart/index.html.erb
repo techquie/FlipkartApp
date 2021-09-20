@@ -1,26 +1,27 @@
+<div style="margin-bottom: 100px;">
 
-<div style="margin-bottom: 500px;">
-  <% @products.each do |product| %>
-      <div class="card" style="float: left; margin-right: 55px;">
-        <!-- 
+  <% count = 0
+  @products.each do |product| %>
+      <% if count == 0 %>
+        <div class="show-item">
+      <% elsif count%3 == 0 %>
+          <div style="margin-top: 20px;" class="show-item">
+      <% end
+        count = count + 1
+      %>
+      <div class="card" style="float: left; width: 300px; padding: 10px;">
         <div class="img-card">
-          <%= image_tag("user.png", :alt => "rss feed", :class=>"cardlogo") %>
-        </div> -->
-        <hr>
+          <% if  product.images.present? %>
+              <%= image_tag(product.images.first, :alt => "rss feed", :class=>"cardlogo") %>
+          <% else %>
+            <%= image_tag 'no-image-icon.png', :class=>"cardlogo" %>
+          <% end %>
+        </div> 
+
         <div class="container">
-          <h4><b>
-            <strong><%= product.name %></strong>
-          </b></h4> 
+            <h4><%= product.name %></h4>
+            <h5> ₹ <%= product.price %></h5>
 
-          <p>
-            <strong>Price:</strong> ₹ 
-            <%= product.price %>
-          </p> 
-
-          <p style="height: 60px;">
-            <strong>Specification:</strong> <br/>
-            <%= product.description %>
-          </p>
           <% if product.quantity == 0%>
             <p style="color: red">
               Out of stock
@@ -30,17 +31,23 @@
               Hurry few left
             </p>
           <% end %>
-          
-          <p>
             <%= form_for @cart_product do |f| %>
               <%= f.hidden_field :product_id, :value=> product.id %>
-              <%= f.number_field :quantity, :value=> 1, :min => 1, :class => "cart-quantity-box" %>
-              <%= link_to 'Show', flipkart_path(product), :class => "btn" %>
+              <div style="width: 100px; float: left">
+                <%= f.number_field :quantity, :value=> 1, :min => 1, :class=>"cart-quantity-box" %>
+              </div>
+              <div style="width: 100px; float: left">
+                <%= link_to 'Show', flipkart_path(product), :class => "btn", :style =>"margin: 0px!important; margin-left: 93px!important;" %>
+              </div>
               <%= f.submit "Add to Cart", :class => "submit-btn " %>
             <% end %>
-          </p>
         </div>
       </div>
-
-  <% end %>
+      <% if count == 0 %>
+        </div>
+      <% elsif count%3 == 0 %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

@@ -69,3 +69,7 @@ gem 'rexml'
 gem 'rails-controller-testing'
 gem 'jquery-rails'
 gem 'doorkeeper'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem "image_processing", ">= 1.2"
+

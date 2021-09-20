@@ -4,40 +4,45 @@
     <%= link_to 'Home', root_path, :class => 'submit-btn links' %>
  </div>
 
-<div class="card" style="margin: auto; text-align: center; width: 50%; text-align: left;">
-      <div class="view-row" style="margin-left: 5px; line-height: 40px; height: 40px;">
-          Product Description
-      </div>
-      <hr>
-      <div class="container">
-        <h4 class="view-row"><b>Title </b>
-          <strong><%= @product.name %></strong>
-        </h4> 
+<div class="" style="margin: auto; text-align: center; width: 80%;">
+  <div style="text-align: center; width: 30%; text-align: center; float: left;">
+     <% if  @product.images.present? %>
+        <%= image_tag(@product.images.first, :alt => "rss feed", :class=>"cardlogo") %>
+      <% else %>
+        <%= image_tag 'no-image-icon.png', :class=>"cardlogo" %>
+      <% end %>
+  </div>
 
-        <p class="view-row">
-          <strong>Price:</strong> ₹ 
-          <%= @product.price %>
-        </p> 
-
-        <p class="view-row" style="height: 60px;">
-          <strong>Specification:</strong> <br/>
-          <%= @product.description %>
-        </p>
-
-        <p class="view-row" style="color: red">
-          <strong><%= @product.quantity %></strong>
-          are left
-        </p>
-        
-        <p>
-          <%= form_for @cart_product do |f| %>
-            <%= f.hidden_field :product_id, :value=> @product.id %>
-            <%= f.number_field :quantity, :value=> 1, :min => 1, :class => "cart-quantity-box" %>
-            <%= f.submit "Add to Cart", :class => "submit-btn " %>
-          <% end %>
-        </p>
-      </div>
+  <div style="margin: auto; text-align: center; width: 70%; text-align: left; float: left;">
+    <div style="width: 100%;height: 40px; font-size: 30px!important; color: #5E6469;">
+      <%= @product.name %>
     </div>
 
+    <div style="width: 100%; height: 35px; font-size: 35px; color: #5E6469;">
+      ₹ <%= @product.price %>
+    </div>
+
+    <div style="width: 100%;">
+    <strong style="font-size: 20px; color: #5E6469;"> Specification </strong>
+    <ul style="margin-left: 40px;">
+      <% @product.description.split('|').each do |spec| %>
+        <li style="height: 30px;"> <%= spec %> </li>
+      <% end %>
+    </ul>
+    </div>
+
+    <div style="width: 100%; margin-top: 10px;">
+      <%= form_for @cart_product do |f| %>
+            <%= f.hidden_field :product_id, :value=> @product.id %>
+            <div style="width: 100px; float: left;">
+              <%= f.number_field :quantity, :value=> 1, :min => 1, :class => "cart-quantity-box" %>
+            </div>
+            <div style="height: 40px; float: left;">
+              <%= f.submit "Add to Cart", :class => "submit-btn" %>
+            </div>
+          <% end %>
+    </div>
+  </div>
+</div>
   
 </div>

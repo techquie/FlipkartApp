@@ -1,12 +1,12 @@
 <div class="dropdown">
-  <button class="dropbtn">
+  <span class="dropbtn">
   <% if customer_signed_in? %>    
     <%= current_customer.name.upcase %>
   <% end %>
   <% if seller_signed_in? %>
     <%= current_seller.name.upcase %>
   <% end %>
-  </button>
+  </span>
 
   <div class="dropdown-content">
   <% if customer_signed_in? %>    

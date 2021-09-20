@@ -1,6 +1,7 @@
 class SellersController < ApplicationController
   before_action :set_seller, only: %i[ show edit update destroy ]
-
+  before_action :sellers_signed_in
+  
   # GET /sellers or /sellers.json
   def index
     @sellers = Seller.all

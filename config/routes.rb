@@ -24,8 +24,14 @@ Rails.application.routes.draw do
   resources :sellers
   resources :categories
   resources :customers
+  resources :image_elements
   resource :card, only:[:show]
-
+#=begin
+  resources :accounts do
+    collection {get :viewproduct}
+    collection {post :import}
+  end
+#=end
   resources :flipkart, only:[:index, :show]
   post 'order_products/place_order', to: 'order_products#place_order'
   get 'sessions/myaccount', to: 'sessions#myaccount'
@@ -38,6 +44,7 @@ Rails.application.routes.draw do
   get '/sessions/productorderhistory', to: 'sessions#productorderhistory'
   post '/order_products/order_payment', to: 'order_products#order_payment'
   get '/search', to: 'flipkart#search'
+  get '/order_summary', to: 'order_products#order_summary'
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do

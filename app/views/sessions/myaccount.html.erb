@@ -1,10 +1,11 @@
 <div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
     <%= link_to 'Back', root_path, :class => 'submit-btn links' %>
   </div>
-<h3>Customer Management Panel</h3>
+<h3 style="font-size: 20px; color: #5E6469;">Customer Management Panel</h3>
+<br/>
 <hr>
 <div style="margin-top: 20px;">
-    <div style="width: 30%; float: left;">
+    <div style="width: 25%; float: left;">
         <strong>My Info</strong>
         <br/>
         <table>
@@ -40,7 +41,7 @@
     <div style="width: 40%; float: left; height: 350px; overflow: auto;">
         <strong>My Address</strong> 
         <br/>
-        <table style="padding-left: 20px;">
+        <table>
             <thead>
                 <tr style="text-align: left">
                 <th>City</th>
@@ -62,9 +63,10 @@
                 <% end %>
             </tbody>
             </table>
+            <br/>
             <strong style="margin-left: 20px;"><%= link_to 'New Address', new_address_path, :class => 'links' %></strong>
     </div>
-    <div style="width: 30%; float: left; height: 350px; overflow: auto;">
+    <div style="width: 35%; float: left; height: 350px; overflow: auto;">
         <strong>Order History</strong>
         <br/>
         <table style="padding-left: 20px;">
@@ -73,14 +75,18 @@
                     <th>Order Id</th>
                     <th>Order Date</th>
                     <th>View</th>
+                    <th>Download</th>
                 </tr>
             </thead>
             <% @orders.each do |order| %>
             <tr>
                 <td> <%= order.id %> </td>
                 <td> <%= order.order_date %> </td> 
-                <td> 
+                <td>
                 <%= link_to 'View', "/sessions/view_orders/#{order.id}" , method: :get %>
+                </td>
+                <td> 
+                <%= link_to 'Receipt', order_products_path(:order_id => order.id, format: :pdf)%>
                 </td>
             </tr>
             <% end %>

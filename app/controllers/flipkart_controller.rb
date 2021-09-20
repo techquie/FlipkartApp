@@ -11,11 +11,12 @@ class FlipkartController < ApplicationController
 
   def search
     form = params[:searchform]
-    query = form[:query]
-    @products = Product.where('name LIKE ?', '%'+ query + '%')
+    @query = form[:query]
+    # User.find(:first, :conditions => ['username ~* ?', "regedarek"])
+    
+    @products = Product.where('lower(name) LIKE ?', '%'+ @query.downcase + '%')
     @cart_product = current_order.cart_product.new
-
-    flash[:notice] = "Search result for #{query}"
+    #flash[:notice] = "Search result for #{@query}"
 
   end
   

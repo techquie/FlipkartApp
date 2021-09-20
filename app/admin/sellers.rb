@@ -18,6 +18,16 @@ ActiveAdmin.register Seller do
     actions
   end
   
+  show do 
+    attributes_table do
+      row :name
+      row :email
+      row :created_at
+      row :updated_at
+    end
+    active_admin_comments
+  end
+  
   filter :name
   filter :email
   filter :id
