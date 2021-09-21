@@ -2,43 +2,6 @@ class SessionsController < ApplicationController
   #skip_before_action :authorized, only: [:new, :create, :welcome]
   protect_from_forgery except: [:create]
 
-  def myaccount
-    if customer_signed_in?
-      @wallet = Wallet.find_by customer_id: current_customer.id
-      @orders = Order.where(customer_id: current_customer.id).order(order_date: :desc).all
-      @addresses = Address.where(customer_id: current_customer.id).all
-    else
-      #redirect to login page
-    end
-  end
-
-  def productorderhistory
-    if seller_signed_in?
-      #make use of currnt_seller /associatons 
-      #ids = Product.where(seller_id: current_seller).all.ids
-      ids = current_seller.product.all.ids
-      @order_products = OrderProduct.where(:product_id => ids).order(id: :desc)
-      @products = Product.all
-    else
-      #redirect to login page
-    end
-  end
-
-  def view_orders
-    order_id = params[:id]
-    @order = Order.find(order_id)
-    @address =  @order.address
-    @order_products = OrderProduct.where(order_id: @order.id).all
-    
-    @products = Product.all
-    @totalAmount = 0
-    @order_products.each do |order_product| 
-      product = @products.find { |obj| obj.id == order_product.product_id}
-      @totalAmount = @totalAmount + order_product.quantity * product.price
-    end
-    #redirect_to "/sessions/view_orders"
-  end
-
   def add_product    
     @product = Product.new(product_params)
 
@@ -48,10 +11,6 @@ class SessionsController < ApplicationController
       redirect_to "/sessions/addproduct", alert: "#{@product.errors.full_messages}" 
     end
   end
-
-  def sellersaccount
-  end
-
 
   def addproduct
     @product = Product.new

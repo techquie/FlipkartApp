@@ -1,6 +1,6 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: %i[ show edit update destroy ]
-  before_action :customer_signed_in
+  before_action :customer_signed_in  
 
   # GET /addresses or /addresses.json
   def index
@@ -14,6 +14,7 @@ class AddressesController < ApplicationController
   # GET /addresses/new
   def new
     @address = Address.new
+    @page = params[:page]
   end
 
   # GET /addresses/1/edit
@@ -29,7 +30,11 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       if @address.save
-        format.html { redirect_to '/sessions/myaccount', notice: "Address is successfully created." }
+        if(params[:page] == "cart")
+          format.html { redirect_to cart_products_path, notice: "Address is successfully created." }
+        else
+          format.html { redirect_to '/accounts/myaccount', notice: "Address is successfully created." }
+        end
         #format.json { render :'/sessions/myaccount', status: :created, location: @address }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +47,7 @@ class AddressesController < ApplicationController
   def update
     respond_to do |format|
       if @address.update(address_params)
-        format.html { redirect_to '/sessions/myaccount', notice: "Address was successfully updated." }
+        format.html { redirect_to '/accounts/myaccount', notice: "Address was successfully updated." }
         #format.json { render :show, status: :ok, location: @address }
       else
         format.html { render :edit, status: :unprocessable_entity }

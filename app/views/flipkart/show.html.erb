@@ -34,11 +34,11 @@
     <div style="width: 100%; margin-top: 10px;">
       <%= form_for @cart_product do |f| %>
             <%= f.hidden_field :product_id, :value=> @product.id %>
-            <div style="width: 100px; float: left;">
+            <div style="float: left;">
               <%= f.number_field :quantity, :value=> 1, :min => 1, :class => "cart-quantity-box" %>
             </div>
-            <div style="height: 40px; float: left;">
-              <%= f.submit "Add to Cart", :class => "submit-btn" %>
+            <div style="float: left;">
+              <%= f.submit "Add to Cart", :class => "submit-btn", :style=>"padding: 11px 17px;margin:1px 0px; margin-left: 20px;" %>
             </div>
           <% end %>
     </div>

@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
       
     def sellers_signed_in
         if !seller_signed_in?
-            redirect_to '/customers/sign_in', notice: 'please login to continue'
+            redirect_to '/sellers/sign_in', notice: 'please login to continue'
         end
     end
 

@@ -6,6 +6,10 @@ class Customer < ApplicationRecord
     has_one :wallet, dependent: :destroy
     has_many :address, dependent: :destroy
     has_one :cart, dependent: :destroy
+    has_many :cart_product, through: :cart
+    #check for order 
+    has_many :orders
+    has_many :order_products, through: :orders
     has_many :payments
 
     validates :name, presence: true, length: {minimum: 5, maximum: 20}

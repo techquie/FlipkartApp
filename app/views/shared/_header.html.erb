@@ -25,8 +25,8 @@
       <% elsif seller_signed_in? %>
       <%= render 'shared/dropdown_menu' %>
       <% else %>
-        <%= link_to 'Customer Sign in', new_customer_session_path, :class => 'links' %>
-        <%= link_to 'Seller Sign in', new_seller_session_path, :class => 'links' %>
+        <%= link_to 'Login', new_customer_session_path, :class => 'links' %>
+        <!-- <%= link_to 'Seller Sign in', new_seller_session_path, :class => 'links' %> -->
       <%end%>
     </div>
     <div class="custom-header-sub-div">

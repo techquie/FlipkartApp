@@ -45,42 +45,48 @@ filter :id
 
 permit_params :name, :password, :email, :password_confirmation, :active  
 
-action_item :wallet_update, only: :show do
-  link_to 'Update Wallet', wallet_update_admin_customer_path(customer), method: :get
-end
-member_action :wallet_update, method: :get do
-  puts "********************************* hello #{params[:id]}"
-  @wallet = Wallet.where(customer_id: params["id"])
+action_item :updatebalance, only: :show do
+  link_to 'Update Wallet', updatebalance_admin_customer_path(customer), method: :get
 end
 
-action_item :showimport, only: :show do
-  link_to 'Show Import', showimport_admin_customer_path(customer), method: :get
+member_action :updatebalance, :method=>:get do
 end
-
-member_action :showimport, :method=>:get do
-  puts "*******************************"
-  @wallet = Wallet.where(customer_id: params["id"])
-  puts "******************************* #{@wallet.inspect}"
+member_action :import, :method=>:post do
 end
 
 
 controller do
 
-  def showimport
-    @product = Product.find(params[:id])
-    
+  def updatebalance
+    @page_title = "Update Amount" 
+    @customer = Customer.find(params["id"])
+    @wallet = @customer.wallet
   end
 
   def import
-    # renders view 'app/views/admin/products/showimport.html.haml'
+    form_data = params[:wallet]
+    if Wallet.find(form_data[:id]).update(amount: form_data[:amount])
+      @customer = Customer.find(form_data[:customer_id])
+      redirect_to admin_customer_path(@customer), :notice=>'Update Success'
+    else
+      flash[:notice] = "Update failed"
+    end
   end
   
-
 end
 
 
-#action_item only: :show do 
-#  link_to 'Add Amount', '/admin/wallets/1/edit'
-#end
+=begin
+  action_item only: :show do 
+    link_to 'Add Amount', '/admin/wallets/1/edit'
+  end
+  action_item :wallet_update, only: :show do
+    link_to 'Update Wallet', wallet_update_admin_customer_path(customer), method: :get
+  end
+  member_action :wallet_update, method: :get do
+    puts "********************************* hello #{params[:id]}"
+    @wallet = Wallet.where(customer_id: params["id"])
+  end
+=end
 
 end

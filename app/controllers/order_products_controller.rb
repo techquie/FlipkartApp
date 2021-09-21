@@ -62,10 +62,11 @@ class OrderProductsController < ApplicationController
   end
 
   def place_order
-    puts "-: order place initiated :-"
     if customer_signed_in?
       @form_data = params[:product_list]
       @wallet = current_customer.wallet
+    else
+      redirect_to '/customers/sign_in', notice: 'please login to continue'
     end
   end
 
@@ -86,7 +87,7 @@ class OrderProductsController < ApplicationController
       respond_to do |format|
         format.html
         format.pdf do
-          render pdf: "payments",template: 'order_products/order_summary.html.erb'
+          render pdf: "order summary",template: 'order_products/order_summary.html.erb'
         end
       end
     else
@@ -96,16 +97,13 @@ class OrderProductsController < ApplicationController
 
   end
 
-  # GET /order_products/1 or /order_products/1.json
   def show
   end
 
-  # GET /order_products/new
   def new
     @order_product = OrderProduct.new
   end
 
-  # GET /order_products/1/edit
   def edit
     order_id = params[:order_id]
     @order = Order.find(order_id)

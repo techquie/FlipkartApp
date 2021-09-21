@@ -97,10 +97,12 @@ class Api::V1::CustomersController < ApplicationController
         end
     end
 
-    #customer_id
+    #customer_id, address_id, pin, 
     def place_order
        
         customer_id = params[:customer_id]
+        address_id = params[:address_id]
+
         cart_id = Cart.find_by(customer_id: customer_id).id
         
         @cart_products = CartProduct.where(cart_id: cart_id).all

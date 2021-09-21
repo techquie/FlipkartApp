@@ -1,4 +1,12 @@
 
 <div id="footer">
+    <div style="width: 80%; float: left;">
     &copy e-com <%= DateTime.current.to_date.year %>
+    </div>
+
+    <div style="width: 20%; float: left;">
+    <% if !customer_signed_in? && !seller_signed_in? %>
+        <%= link_to 'Seller', new_seller_session_path, :class => 'links' %>
+    <%end%>
+    </div>
 </div>

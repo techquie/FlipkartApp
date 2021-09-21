@@ -2,9 +2,11 @@
   <%= link_to 'Back', '/sessions/sellersaccount', :class => 'submit-btn links' %>
 </div>
 
-<div style="margin: auto; width: 40%;">
-  <h4>New Category</h4>
+<div style="margin: auto; width: 40%; padding: 20px;" class="card-nohover">
+  <span style="font-size: 20px; color: #5E6469;">New Category</span>
 
+  <hr/>
+  <br>
   <%= form_with(model: category) do |form| %>
     <% if category.errors.any? %>
       <div id="error_explanation">

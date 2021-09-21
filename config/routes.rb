@@ -30,18 +30,19 @@ Rails.application.routes.draw do
   resources :accounts do
     collection {get :viewproduct}
     collection {post :import}
+    collection {get :productorderhistory}
+    collection {get :myaccount}
   end
 #=end
   resources :flipkart, only:[:index, :show]
   post 'order_products/place_order', to: 'order_products#place_order'
-  get 'sessions/myaccount', to: 'sessions#myaccount'
+  #get 'sessions/myaccount', to: 'sessions#myaccount'
   get 'sessions/sellersaccount', to: 'sessions#sellersaccount'
-  get '/sessions/viewproduct', to: 'sessions#viewproduct'
-  get '/sessions/addproduct', to: 'sessions#addproduct'
+  #get '/sessions/viewproduct', to: 'sessions#viewproduct'
+  #get '/products/addproduct', to: 'products#addproduct'
   post '/wallets/updatebalance', to: 'wallets#updatebalance'
-  get 'sessions/view_orders/:id', to: 'sessions#view_orders'
-  post '/sessions/add_product', to: 'sessions#add_product'
-  get '/sessions/productorderhistory', to: 'sessions#productorderhistory'
+  get 'products/view_orders/:id', to: 'products#view_orders'
+  #post '/sessions/add_product', to: 'sessions#add_product'
   post '/order_products/order_payment', to: 'order_products#order_payment'
   get '/search', to: 'flipkart#search'
   get '/order_summary', to: 'order_products#order_summary'

@@ -25,7 +25,7 @@
               <% @addresses.each do |address| %>
                 <tr>
                   <td> 
-                    <%= f.radio_button:address_id, address.id, :checked => (address.default == true) %>
+                    <%= f.radio_button:address_id, address.id, :checked => (address.default == true || @addresses.size == 1) %>
                   </td>
                   <td>City: <%= address.city %></td>
                   <td>Pincode: <%= address.pincode %></td>
@@ -34,9 +34,11 @@
               <% end %>
             </tbody>
           </table>
+          <% if  @addresses.size == 0%>
           <p style="margin-top: 10px;">
-            <strong><%= link_to 'Add new address', new_address_path, :class => 'links' %></strong>
+            <strong><%= link_to 'Add new address', new_address_path({"page":"cart"}), :class => 'links' %></strong>
           </p>
+          <% end %>
         </div>
 
         <div style="height: 150px; padding-right: 20px;">
@@ -77,13 +79,10 @@
             <tbody>
               <% @cart_products.each do |cart_product| %>
                 <tr>
-                  <td>
-                  <%= product = @products.find { |obj| obj.id == cart_product.product_id }
-                  product.name %>
-                  </td>
-                  <td><%= product.price%></td>
+                  <td><%= cart_product.product.name %></td>
+                  <td><%= cart_product.product.price%></td>
                   <td><%= cart_product.quantity %></td>
-                  <td>₹ <%= product.price * cart_product.quantity %></td>
+                  <td>₹ <%= cart_product.product.price * cart_product.quantity %></td>
                   <td><%= link_to 'Remove', cart_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                 </tr>
               <% end %>

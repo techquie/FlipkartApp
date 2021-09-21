@@ -2,8 +2,9 @@ class Order < ApplicationRecord
   belongs_to :customer
   belongs_to :address
 
-  has_many :order_product, dependent: :destroy
+  has_many :order_products, dependent: :destroy
   has_many :payment, dependent: :destroy
+  
   before_save :set_order_date
 
   def set_order_date

@@ -1,5 +1,0 @@
-<%= form_for :wallet, url: '/wallets/updatebalance', method: :post do |f| %>
-    <%= f.number_field :amount %>
-    <%= f.hidden_field :wallet_id %>
-    <%= f.submit "Update Balance", :class => "submit-btn links" %>
-<% end %>

@@ -1,0 +1,11 @@
+<div id="main_content_wrapper ">
+<div id="main_content">
+<%= form_for :wallet, url: "#{admin_customer_path}/import", method: :post do |f| %>
+    <%= f.number_field :amount, :value=>@wallet.amount, :style=>"width: 200px;" %>
+    <%= f.hidden_field :id, :value=>@wallet.id %>
+    <%= f.hidden_field :customer_id, :value=>@wallet.customer_id %>
+    
+    <%= f.submit "Update Balance", :class => "" %>
+<% end %>
+</div>
+</div>

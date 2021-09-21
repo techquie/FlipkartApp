@@ -10,7 +10,7 @@
 
   <div class="dropdown-content">
   <% if customer_signed_in? %>    
-    <a href="/sessions/myaccount" class="links">My Account</a>
+    <a href="/accounts/myaccount" class="links">My Account</a>
     <%= link_to 'Sign out', destroy_customer_session_path, method: :delete, :class => 'links' %>
   <% end %>
   <% if seller_signed_in? %>

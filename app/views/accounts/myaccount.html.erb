@@ -4,7 +4,7 @@
 <h3 style="font-size: 20px; color: #5E6469;">Customer Management Panel</h3>
 <br/>
 <hr>
-<div style="margin-top: 20px;">
+<div style="margin-top: 20px; display: flex;justify-content: space-between;">
     <div style="width: 25%; float: left;">
         <strong>My Info</strong>
         <br/>
@@ -38,8 +38,9 @@
 
         </table>
     </div>
-    <div style="width: 40%; float: left; height: 350px; overflow: auto;">
+    <div style="width: 35%; float: left; height: 350px; overflow: auto;">
         <strong>My Address</strong> 
+        <br/>
         <br/>
         <table>
             <thead>
@@ -69,7 +70,8 @@
     <div style="width: 35%; float: left; height: 350px; overflow: auto;">
         <strong>Order History</strong>
         <br/>
-        <table style="padding-left: 20px;">
+        <br/>
+        <table>
             <thead>
                 <tr>
                     <th>Order Id</th>
@@ -83,7 +85,7 @@
                 <td> <%= order.id %> </td>
                 <td> <%= order.order_date %> </td> 
                 <td>
-                <%= link_to 'View', "/sessions/view_orders/#{order.id}" , method: :get %>
+                <%= link_to 'View', "/products/view_orders/#{order.id}" , method: :get %>
                 </td>
                 <td> 
                 <%= link_to 'Receipt', order_products_path(:order_id => order.id, format: :pdf)%>

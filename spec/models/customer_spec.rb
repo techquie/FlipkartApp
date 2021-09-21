@@ -18,19 +18,19 @@ RSpec.describe Customer, type: :model do
     it 'return error email can not be nil' do
         subject.email = nil
         expect(subject.save).to eq false
-        puts subject.errors.full_messages
+        #puts subject.errors.full_messages
     end
 
     it 'return error name can not be less than 5 char' do
         subject.name = "ma"
         expect(subject.save).to eq false
-        puts subject.errors.full_messages
+        #puts subject.errors.full_messages
     end
 
     it 'return error name can not be more than 20 char' do
         subject.name = "adfna skhfhdsf keabsfyiewhfyg ewifiewufb"
         expect(subject.save).to eq false
-        puts subject.errors.full_messages
+        #puts subject.errors.full_messages
     end
 
     it 'return error email for uniqueness' do

@@ -14,7 +14,7 @@ RSpec.describe Product, type: :model do
         )
       }
 
-    it 'returns the name for a customer' do
+    it 'returns the name for a product' do
         product = build(:product, name: 'Mi Note 9 Pro')
         expect(product.name).to_not eq 'Mi Note '
     end
@@ -22,7 +22,7 @@ RSpec.describe Product, type: :model do
     it 'return error name can not be less than 5 char' do
         subject.name = 'a'
         expect(subject.save).to eq false
-        puts subject.errors.full_messages
+        #puts subject.errors.full_messages
     end
 
     it 'only numerical value accepted for quantity' do

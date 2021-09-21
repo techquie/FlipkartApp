@@ -1,6 +1,7 @@
 class CartProduct < ApplicationRecord
   belongs_to :product
   belongs_to :cart
+  has_one :customer, through: :cart
   
   @total
   @subtotal

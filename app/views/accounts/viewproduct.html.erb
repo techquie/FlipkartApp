@@ -38,10 +38,7 @@
         <td><%= product.price %></td>
         <td><%= product.description %></td>
         <td><%= product.quantity %></td>
-        <td>
-        <%= category = @categories.find { |obj| obj.id == product.category_id }
-                        category.name %>
-        </td>
+        <td><%= product.category.name %></td>
 
         <td><%= link_to 'Update', edit_product_path(product) %></td>
       </tr>

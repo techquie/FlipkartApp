@@ -3,6 +3,10 @@
     <%= link_to 'Back', '/sessions/sellersaccount', :class => 'submit-btn links' %>
 </div>
 <div>
+    <h3 style="font-size: 20px; color: #5E6469;">Product Order History</h3>
+    <br>
+    <hr/>
+    <br>
     <table style="margin-bottom: 100px;">
         <thead>
             <tr>
@@ -20,8 +24,7 @@
             <tr>
                 <td><%= order_product.order_id %></td>
                 <td><%= order_product.order.customer.name %></td>
-                <td><%= product = @products.find { |obj| obj.id == order_product.product_id }
-                        product.name %> </td>
+                <td><%= order_product.product.name%> </td>
                 <td><%= order_product.quantity %></td>
                 <td><%= order_product.order.address.city %> </td>
                 <td>₹ <%= order_product.order.order_date %></td>

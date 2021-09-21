@@ -6,14 +6,11 @@ class CartProductsController < ApplicationController
   # GET /cart_products or /cart_products.json
   def index
     if customer_signed_in?
-      #customer_id = current_customer.present? ? current_customer.id : 0
-      @products = Product.all
-      
-      @cart = current_customer.cart #Cart.find_by customer_id: customer_id
+      @cart = current_customer.cart
       @wallet = current_customer.wallet
 
       @cart_products = CartProduct.where(cart_id: @cart.id).all
-      @addresses = Address.where(customer_id: current_customer.id).all
+      @addresses = current_customer.address # Address.where(customer_id: current_customer.id).all
 
       @totalAmount = 0
       @cart_products.each do |cart_product| 
@@ -50,7 +47,6 @@ class CartProductsController < ApplicationController
       @product = @cart_product.product 
       
       flag = CartProduct.exists?(:product_id => @cart_product.product_id, :cart_id =>@cart_product.cart_id)
-      
       if flag
         localCartProduct = CartProduct.find_by product_id: @cart_product.product_id, cart_id: @cart_product.cart_id
           @cart_product.quantity = @cart_product.quantity + localCartProduct.quantity.to_i
@@ -60,23 +56,20 @@ class CartProductsController < ApplicationController
        
         if flag
           if CartProduct.where(product_id: @cart_product.product_id).where(cart_id: @cart_product.cart_id).update_all(quantity: @cart_product.quantity)
-            puts "updated successfully"
             redirect_to root_url, notice: "#{@product.name} added to cart"
           else
             redirect_to root_url, notice: "#{@product.name} can't be added to cart"
           end
         else
-          #respond_to do |format|
-            if @cart_product.save
-              session[:cart_id] = @cart.id
-              cart_products = CartProduct.where(cart_id: @cart.id).all
-              session[:cart_count] = cart_products.size
+          if @cart_product.save
+            session[:cart_id] = @cart.id
+            cart_products = CartProduct.where(cart_id: @cart.id).all
+            session[:cart_count] = cart_products.size
 
-              title = Product.find(@cart_product.product_id).name
-              redirect_to root_url, notice: "#{title} added to cart"
-            else
-              redirect_to root_url, notice: "#{title} couldn't added to cart"
-            end
+            redirect_to root_url, notice: "#{@cart_product.product.name} added to cart"
+          else
+            redirect_to root_url, notice: "#{@cart_product.product.name} couldn't added to cart"
+          end
         end
       else
         redirect_to root_url, notice: "Available product is less than enterted quantity"
@@ -108,8 +101,7 @@ class CartProductsController < ApplicationController
     session[:cart_count] = cart_products.size
 
     respond_to do |format|
-      title = Product.find(@cart_product.product_id).name
-      format.html { redirect_to cart_products_url, notice: "#{title} removed successfully." }
+      format.html { redirect_to cart_products_url, notice: "#{@cart_product.product.name} removed successfully." }
       format.json { head :no_content }
     end
   end
