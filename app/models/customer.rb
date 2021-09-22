@@ -22,9 +22,9 @@ class Customer < ApplicationRecord
     def create_cart
         @cart = Cart.new(:customer_id => self.id)
         if @cart.save
-            puts "cart created for customer id = #{self.id}"
+            #puts "cart created for customer id = #{self.id}"
         else
-            puts "cart could not be created for customer id = #{self.id}"
+            #puts "cart could not be created for customer id = #{self.id}"
         end
     end
 
@@ -32,9 +32,9 @@ class Customer < ApplicationRecord
         pin = rand.to_s[2..5]
         @wallet = Wallet.new(:customer_id => self.id, :amount => 100000, :pin => pin)
         if @wallet.save
-            puts "wallet created for customer id = #{self.id} with default amount = 1000"
+            #puts "wallet created for customer id = #{self.id} with default amount = 1000"
         else
-            puts "wallet could not be created for customer id = #{self.id}"
+            #puts "wallet could not be created for customer id = #{self.id}"
         end
     end
 

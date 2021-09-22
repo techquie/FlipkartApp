@@ -1,13 +1,13 @@
 
 <div class="custom-header">
-    <div class="custom-header-sub-div" style="text-align: left">
+    <div class="custom-header-sub-div" style="text-align: right">
         <%= image_tag("flipkart.png", :alt => "rss feed", :class=>"logo") %>
     </div>
     <div class="custom-header-sub-div">
         <% if !seller_signed_in? %>
         <%= form_for:searchform, url: '/search', method: :get  do |f| %>
-        <div style="float: left; width: 100%;">
-          <%= f.text_field :query, :required => true, :placeholder => 'Search', :value=> @query %>
+        <div style="float: left; width: 100%; height: 40px;">
+          <%= f.text_field :query, :required => true, :placeholder => 'Search', :value=> @query, :class=>"search" %>
         </div>
         <!-- 
         <div style="float: left; width: 30%;">
@@ -25,14 +25,14 @@
       <% elsif seller_signed_in? %>
       <%= render 'shared/dropdown_menu' %>
       <% else %>
-        <%= link_to 'Login', new_customer_session_path, :class => 'links' %>
+        <%= link_to 'Login', new_customer_session_path, :class => 'border-button login' %>
         <!-- <%= link_to 'Seller Sign in', new_seller_session_path, :class => 'links' %> -->
       <%end%>
     </div>
     <div class="custom-header-sub-div">
       <% if customer_signed_in? %>
       <!-- <%= link_to image_tag("cart.png", :alt => "Cart Image", :class=>"logo rvm"), cart_products_path %> -->
-      <%= link_to "CART [#{session[:cart_count]}]", cart_products_path, :class => "links", :style => "margin-right: 35px;" %>  
+      <%= link_to "CART [#{session[:cart_count]}]", cart_products_path, :class => "border-button login", :style => "margin-right: 35px; border-radius: 20px;" %>  
       <% end %>
     </div>
     

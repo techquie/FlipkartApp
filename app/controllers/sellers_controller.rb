@@ -1,6 +1,6 @@
 class SellersController < ApplicationController
   before_action :set_seller, only: %i[ show edit update destroy ]
-  before_action :sellers_signed_in
+  before_action :sellers_signed_in unless Rails.env.test?
   
   # GET /sellers or /sellers.json
   def index

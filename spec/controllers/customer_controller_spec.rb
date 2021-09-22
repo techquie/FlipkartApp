@@ -27,9 +27,7 @@ RSpec.describe CustomersController,type: :controller do
 
             expect(Wallet.count).to eq(@wallet_count + 1)
         end
-    end
-
-    describe 'Check for Customer' do
+    
         it 'check for change cart count after customer create' do
             customer = Customer.new( :name => "Kundan Verma", :email => 'kundan123@gmail.com', :password => 'kundan')
             expect { customer.save }.to change { Cart.count }.by(1)

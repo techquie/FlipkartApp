@@ -17,9 +17,7 @@ RSpec.describe FlipkartController, :type=> :controller do
             get "index"
             expect(response).to be_successful
         end
-    end
-
-    describe 'GET /index' do
+    
       it 'renders a response without auth' do
         get 'index'
         expect(response).to be_successful

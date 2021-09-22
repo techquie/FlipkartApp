@@ -22,13 +22,11 @@ RSpec.describe Product, type: :model do
     it 'return error name can not be less than 5 char' do
         subject.name = 'a'
         expect(subject.save).to eq false
-        #puts subject.errors.full_messages
     end
 
     it 'only numerical value accepted for quantity' do
         subject.quantity = 'adf'
         expect(subject.save).to eq false
-        puts subject.errors.full_messages
     end
 
 end

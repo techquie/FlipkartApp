@@ -20,35 +20,41 @@
             Pincode: <%= @address.pincode %>
         </p>
     </div>
+    <div style="margin-top: 10px; font-size: 20px;"> 
+    Product Details 
+    <br>
+    <hr/>
+    </div>
+    <div style="margin-top: 10px; margin-bottom: 100px;">
+        <table>
+            <thead>
+                <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+                </tr>
+            </thead>
 
-    <table>
-        <thead>
-            <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Subtotal</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <% @order_products.each do |order_product| %>
-            <tr>
-                <td><%= product = @products.find { |obj| obj.id == order_product.product_id }
-                        product.name %> </td>
-                <td><%= order_product.quantity %></td>
-                <td>₹ <%= product.price %></td>
-                <td>₹ <%= product.price  * order_product.quantity %></td>
-                </td>
-            </tr>
-            
-            <% end %>
-            <tr>
-                <td colspan="3" style="text-align: left;"><strong>Total Amount</strong></td>
-                <td colspan="2" style="text-align: left"> 
-                    <strong>₹ <%= @totalAmount %></strong>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <tbody>
+                <% @order_products.each do |order_product| %>
+                <tr>
+                    <td><%= product = @products.find { |obj| obj.id == order_product.product_id }
+                            product.name %> </td>
+                    <td><%= order_product.quantity %></td>
+                    <td>₹ <%= product.price %></td>
+                    <td>₹ <%= product.price  * order_product.quantity %></td>
+                    </td>
+                </tr>
+                
+                <% end %>
+                <tr>
+                    <td colspan="3" style="text-align: left;"><strong>Total Amount</strong></td>
+                    <td colspan="2" style="text-align: left"> 
+                        <strong>₹ <%= @totalAmount %></strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -29,7 +29,7 @@ RSpec.describe ProductsController, type: :request do
         }
       end
 
-      #let! will implicitly called before
+      #let! will implicitly called before, and create object instantily
 
       let!(:valid_attributes_2) do
       {
@@ -49,37 +49,5 @@ RSpec.describe ProductsController, type: :request do
         end
       end
 
-
-=begin
-      describe 'GET #show' do 
-        it "responds to show html after create" do
-            puts "Before save count = #{Product.count}"
-            product = Product.create!(valid_attributes)
-            puts "After save count = #{Product.count}"
-            get :show, params: {id: product.to_param}
-            expect(response).to render_template(:show)
-        end
-      end
-      
-      describe "GET /edit" do
-        it "renders edit path without auth" do
-          product = Product.new(valid_attributes)
-          product.seller_id = @current_seller.id
-          product.save
-          get edit_product_path(product)
-          expect(response).to_not be_successful
-        end
-      end
-
-      describe "GET /edit" do
-        it "renders edit path with auth" do
-          sign_in @current_user
-          product = Product.new(valid_attributes)
-          product.seller_id = @current_seller.id
-          product.save
-          get edit_product_path(:prod_id=>product.id)
-          expect(response).to be_successful
-        end
-=end
 end
 

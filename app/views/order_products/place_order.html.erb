@@ -1,7 +1,7 @@
 
 <div style="width: 100%; margin: auto;">
 
-    <div style="width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+    <div style="width: 100%; height: 50px; line-height: 40px; color: red; text-align: left;">
     <%= link_to 'Back', cart_products_path, :class => 'submit-btn links' %>
     </div>
     <%= form_for :formdata, url: '/order_products/order_payment', method: :post do |f| %>

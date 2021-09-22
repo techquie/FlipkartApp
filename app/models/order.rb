@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   belongs_to :address
 
   has_many :order_products, dependent: :destroy
-  has_many :payment, dependent: :destroy
+  has_many :payments, dependent: :destroy
   
   before_save :set_order_date
 

@@ -1,5 +1,5 @@
 
-<div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+<div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: left;">
     <%= link_to 'Back', '/sessions/sellersaccount', :class => 'submit-btn links' %>
 </div>
 <div>
@@ -27,7 +27,7 @@
                 <td><%= order_product.product.name%> </td>
                 <td><%= order_product.quantity %></td>
                 <td><%= order_product.order.address.city %> </td>
-                <td>₹ <%= order_product.order.order_date %></td>
+                <td><%= order_product.order.order_date %></td>
                 </td>
             </tr>
             

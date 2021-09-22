@@ -70,7 +70,7 @@ class Api::V1::CustomersController < ApplicationController
 
         @cart_product = CartProduct.new(cart_id: cart_id, product_id: product_id, quantity: quantity)
         @product = @cart_product.product
-
+        
         flag = CartProduct.exists?(:product_id => product_id, :cart_id => cart_id)
         if flag
             localCartProduct = CartProduct.find_by product_id: product_id, cart_id: cart_id
@@ -102,31 +102,51 @@ class Api::V1::CustomersController < ApplicationController
        
         customer_id = params[:customer_id]
         address_id = params[:address_id]
+        securitycode = params[:securitycode].to_i
+        customer = Customer.find(customer_id)
+        wallet = customer.wallet
 
-        cart_id = Cart.find_by(customer_id: customer_id).id
-        
-        @cart_products = CartProduct.where(cart_id: cart_id).all
-        @order = Order.new(:customer_id => customer_id, :address_id => 1, order_date: Time.now)
+        if securitycode == wallet.pin.to_i 
+            cart_id = customer.cart.id
+            
+            @cart_products = CartProduct.where(cart_id: cart_id).all
+            if @cart_products.size != 0
+                @order = Order.new(:customer_id => customer_id, :address_id => address_id, order_date: Time.now)
 
-        if @cart_products
-            if @order.save
-              order_id = @order.id
-              @cart_products.each do |product|
-                order_product = OrderProduct.new(order_id: order_id, product_id: product.product_id, quantity: product.quantity)
-        
-                if order_product.save
-                    product.destroy
+                if @cart_products
+                    if @order.save
+                        total_amount = 0
+                        @cart_products.each do |product|
+                            order_product = OrderProduct.new(order_id: @order.id, product_id: product.product_id, quantity: product.quantity)
+                            
+                            if order_product.save
+                                total_amount = total_amount + order_product.product.price * order_product.quantity
+                                product.destroy
+                            else
+                                puts @order_product.errors.full_messages
+                            end
+                        end
+                        if wallet.update(amount: (wallet.amount - total_amount.to_i))
+                            puts "payable amount deducted successfully"
+                        end
+          
+                        payment = Payment.new(mode: 'Wallet', order_id: @order.id)
+                        payment.save
+
+                        render json: { message: "Thank You ! Order placed successfully order id [#{@order.id}]"}
+                    else
+                    render json: { errors: @order.errors.full_messages }
+                    end
                 else
-                    puts @order_product.errors.full_messages
+                    render json: {errors: "cart is empty, couldn't be initiated"}
                 end
-              end
-              render json: { message: "Thank You ! Order placed successfully order id [#{order_id}]"}
             else
-              render json: { errors: @order.errors.full_messages }
+                render json: {errors: "Your card is empty"}
             end
-          else
-            render json: {errors: "cart is empty, couldn't be initiated"}
+        else
+            render json: {errors: "Invalid Security Pin"}
         end
+
     end
 
     def view_orders

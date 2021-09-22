@@ -1,13 +1,15 @@
 <div>
-    <div style="width: 25%; float: left; height: 40px;"><%= link_to 'View Product', viewproduct_accounts_path %></div>
-    <div  style="width: 25%; float: left; height: 40px;"><%= link_to 'Add Product', new_product_path %></div>
-    <div  style="width: 25%; float: left; height: 40px;"><%= link_to 'Add Category', new_category_path %></div>
-    <div  style="width: 25%; float: left; height: 40px;"><%= link_to 'Product Order History', productorderhistory_accounts_path %></div>
+    <div class="btn-group" style="width: 100%; float: left;">
+        <%= link_to 'View Product', viewproduct_accounts_path, :class=>"button" %>
+        <%= link_to 'Add Product', new_product_path, :class=>"button" %>
+        <%= link_to 'Add Category', new_category_path, :class=>"button" %>
+        <%= link_to 'Product Order History', productorderhistory_accounts_path, :class=>"button" %>
+    </div>
 
-    <div style="width: 100%; float: left;">
-        <table>
+    <div style="margin-top: 20px; width: 100%; float: left;">
+        <table style="width: 400px; padding: 20px;" class="">
             <tr >
-                <td colspan="2">My Info</td>
+                <td colspan="2"><strong>My Info</strong></td>
             <tr>
             <tr>
                 <td>ID</td>

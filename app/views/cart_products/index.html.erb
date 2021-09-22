@@ -1,6 +1,6 @@
-<div>
+<div style="margin-bottom: 100px!important;">
   
-  <div style="width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+  <div style="width: 100%; height: 50px; line-height: 40px; color: red; text-align: left;">
     <%= link_to 'Back', root_path, :class => 'submit-btn links' %>
   </div>
 
@@ -64,7 +64,7 @@
         
       </div>
 
-      <div style="width: 60%; float: left;">
+      <div style="width: 60%; float: left; margin-bottom: 100px;">
           <table class="last-table-border">
             <thead>
               <tr>
@@ -99,7 +99,11 @@
             <%= f.hidden_field :totalAmount, :value=> @totalAmount %>
             <%= f.hidden_field :cart_id, :value=> @cart.id %>
             <%= f.hidden_field :customer_id, :value=> @cart.customer_id %>
+            <% if  @addresses.size == 0%>
+             <p style="color: red; text-align: center; margin-top: 10px; font-size: 15px; font-weight: bold;">Please add address to continue </p>
+            <% else %>
             <%= f.submit "Place Order", :class => "submit-btn links" %>
+            <% end %>
   <% end %>
       </div>
     </div>

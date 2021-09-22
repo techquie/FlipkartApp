@@ -1,4 +1,4 @@
-<div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: right;">
+<div style="margin-top: -40px; width: 100%; height: 50px; line-height: 40px; color: red; text-align: left;">
     <%= link_to 'Back', root_path, :class => 'submit-btn links' %>
   </div>
 <h3 style="font-size: 20px; color: #5E6469;">Customer Management Panel</h3>
@@ -24,7 +24,7 @@
             <tr>
                 <td>Available balance </td>
                 <td>
-                    <%= @wallet.amount %>
+                    ₹ <%= @wallet.amount %>
                     <!-- <%= render 'wallet', wallet: @wallet %> -->
                 </td>
             </tr>
